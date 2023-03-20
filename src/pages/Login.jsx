@@ -138,6 +138,9 @@ const SignupComponent = () => {
         class="text-black p-2 mt-1 mb-4 rounded w-full"
         required
         onBlur={updateField}
+        onInput={(e) => {
+          errors().email && updateField(e);
+        }}
       />
 
       {/* Password */}
