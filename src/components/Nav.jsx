@@ -3,23 +3,37 @@ import { A } from "@solidjs/router";
 import { logUserOut } from "../store/user";
 import { icons } from "../assets/icons";
 
+// navs
 const top_navs = [
-  { name: "Home", route: "/", icon: icons.home },
-  { name: "Models", route: "/models", icon: icons.models },
+  { name: "Home", route: "/", icon: icons.home, click: null },
+  { name: "Models", route: "/models", icon: icons.models, click: null },
 ];
 
-const onPage = (page, value) => (location() === page ? value : "");
+const bottom_navs = [
+  {
+    name: "Settings",
+    route: "/settings",
+    icon: icons.settings,
+    click: null,
+  },
+  {
+    name: "Logout",
+    route: "/",
+    icon: icons.logout,
+    click: () => logUserOut(),
+  },
+];
 
+// Nav group
 const NavGroup = (props) => (
   <section>
     <For each={props.nav_items}>
       {(page) => (
         <A
           href={page.route}
-          class={
-            "flex justify-start items-center px-4 py-4 hover:bg-gray-600" +
-            onPage(page.name, " underline bg-gray-600")
-          }
+          class="flex justify-start items-center px-4 py-4 hover:bg-gray-600"
+          classList={{ "underline bg-gray-600": location() === page.name }}
+          onClick={page.click}
         >
           <div class="pr-4">{page.icon}</div>
           <div>{page.name}</div>
@@ -29,39 +43,11 @@ const NavGroup = (props) => (
   </section>
 );
 
-const BottomNav = () => {
-  return (
-    <section>
-      <A
-        href="/settings"
-        class={
-          "flex justify-start items-center px-4 py-4 hover:bg-gray-600" +
-          onPage("Settings", " underline bg-gray-600")
-        }
-      >
-        <div class="pr-4">{icons.settings}</div>
-        <div>Settings</div>
-      </A>
-      <A
-        href="/"
-        class={
-          "flex justify-start items-center px-4 py-4 hover:bg-gray-600" +
-          onPage("Logout", " underline bg-gray-600")
-        }
-        onClick={() => logUserOut()}
-      >
-        <div class="pr-4">{icons.logout}</div>
-        <div>Logout</div>
-      </A>
-    </section>
-  );
-};
-
 export default function () {
   return (
     <>
       <NavGroup nav_items={top_navs} />
-      <BottomNav />
+      <NavGroup nav_items={bottom_navs} />
     </>
   );
 }
