@@ -58,7 +58,15 @@ const SignupComponent = () => {
   };
 
   const validate = (name = null) => {
-    if (name) return validateFunctions[name]();
+    if (name === "password") {
+      return {
+        password: validateFunctions.password(),
+        confirmpassword: validateFunctions.confirmpassword(),
+      };
+    } else if (name)
+      return {
+        [name]: validateFunctions[name](),
+      };
 
     return {
       username: validateFunctions.username(),
@@ -79,7 +87,7 @@ const SignupComponent = () => {
   const updateField = (e) => {
     const name = e.currentTarget.name;
     setFields([name], e.currentTarget.value);
-    setErrors((prev) => ({ ...prev, [name]: validate(name) }));
+    setErrors((prev) => ({ ...prev, ...validate(name) }));
   };
 
   const submit = (e) => {
@@ -147,6 +155,9 @@ const SignupComponent = () => {
         required
         minlength="8"
         class="text-black p-2 mt-1 mb-4 rounded w-full"
+        onInput={(e) => {
+          (errors().password || errors().confirmpassword) && updateField(e);
+        }}
         onBlur={updateField}
       />
 
@@ -166,6 +177,7 @@ const SignupComponent = () => {
         class="text-black p-2 mt-1 mb-4 rounded w-full"
         onInput={updateField}
         onBlur={updateField}
+        onKeyUp={updateField}
       />
 
       {/* Submit button */}
