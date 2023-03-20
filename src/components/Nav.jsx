@@ -1,7 +1,7 @@
 import { location } from "../store/location";
 import { A } from "@solidjs/router";
 import { logUserOut } from "../store/user";
-import { icons } from "../../assets/icons";
+import { icons } from "../assets/icons";
 
 // navs
 const top_navs = [

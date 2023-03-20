@@ -4,7 +4,7 @@ import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
 import { location } from "./store/location";
 import { user, logUserOut, isCached } from "./store/user";
-import logoUrl from "../assets/logo.png";
+import logoUrl from "./assets/logo.png";
 
 import "./index.css";
 import App from "./App";
