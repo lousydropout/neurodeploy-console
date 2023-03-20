@@ -35,14 +35,14 @@ const Logo = () => (
 render(
   () => (
     <Router>
-      {/* Header */}
-      <header class="flex flex-row p-4 items-center h-20 bg-gray-800 border-b-4 border-gray-700">
-        <Logo />
-      </header>
+      <Show when={user.loggedIn} fallback={() => Login()}>
+        {/* Header */}
+        <header class="flex flex-row p-4 items-center h-20 bg-gray-800 border-b-4 border-gray-700">
+          <Logo />
+        </header>
 
-      {/* Center */}
-      <Show when={user.loggedIn} fallback={Login}>
-        <div className="flex h-full bg-gray-800  overflow-hidden">
+        {/* Center */}
+        <div className="flex h-full overflow-hidden bg-gray-800">
           <div class="grid grid-cols-[15rem_1fr] w-full">
             {/* SideNav */}
             <nav class="col-span-1 flex flex-col justify-between h-full p-6  bg-gray-800 border-r-4 border-gray-700">
