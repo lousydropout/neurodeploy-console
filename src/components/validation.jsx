@@ -1,12 +1,14 @@
 import { createStore } from "solid-js/store";
 
-function checkValid({ element, validators = [] }, setErrors, errorClass) {
+function checkValid({ element, checkFn = [] }, setErrors, errorClass) {
   return async () => {
     element.setCustomValidity("");
     element.checkValidity();
     let message = element.validationMessage;
+    const validators = Array.isArray(checkFn) ? checkFn : [checkFn];
     if (!message) {
       for (const validator of validators) {
+        // if (validator === true) continue;
         const text = await validator(element);
         if (text) {
           element.setCustomValidity(text);
@@ -23,11 +25,13 @@ function checkValid({ element, validators = [] }, setErrors, errorClass) {
 }
 
 export function useForm({ errorClass }) {
-  const [errors, setErrors] = createStore({}),
-    fields = {};
+  const [errors, setErrors] = createStore({});
+  const fields = {};
 
   const validate = (ref, accessor) => {
     const validators = accessor() || [];
+    console.log("ref: ", ref);
+    console.log("accessor: ", accessor);
     let config;
     fields[ref.name] = config = { element: ref, validators };
     ref.onblur = checkValid(config, setErrors, errorClass);

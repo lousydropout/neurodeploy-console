@@ -20,10 +20,14 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 }
 
 const Logo = () => (
-  <div class="text-2xl">
+  <div class="text-3xl">
     <A href="/" class="flex items-center space-x-3">
-      <img src="/src/assets/logo.png" alt="Neurodeploy logo" class="w-8 ml-2" />
-      <span class="">Neurodeploy</span>
+      <img
+        src="/src/assets/logo.png"
+        alt="Neurodeploy logo"
+        class=" w-12 ml-2"
+      />
+      <span>Neurodeploy</span>
     </A>
   </div>
 );
@@ -32,7 +36,7 @@ render(
   () => (
     <Router>
       {/* Header */}
-      <header class="flex flex-row p-4 items-center h-16 bg-gray-800 border-b-4 border-gray-700">
+      <header class="flex flex-row p-4 items-center h-20 bg-gray-800 border-b-4 border-gray-700">
         <Logo />
       </header>
 
