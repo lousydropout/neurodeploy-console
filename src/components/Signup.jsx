@@ -3,6 +3,7 @@ import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
+import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
 
 const ErrorMessage = (props) => (
@@ -26,14 +27,42 @@ const SignupComponent = () => {
     setErrors((prev) => ({ ...prev, ...validate(fields, name) }));
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     setErrors(validate(fields));
 
     if (!validated(errors())) {
       return;
     }
-    console.log("valid");
+    const myHeaders = new Headers();
+    myHeaders.append("username", fields.username);
+    myHeaders.append("password", fields.password);
+    myHeaders.append("email", fields.email);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    // sign up
+    try {
+      const response = await fetch(
+        "https://user-api.playingwithml.com/sign-up",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("signup: ", result);
+
+      updateUser({
+        loggedIn: true,
+        username: fields.username,
+        jwt: result["jwt"]["token"],
+        expires: result["jwt"]["expiration"],
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

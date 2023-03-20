@@ -25,6 +25,7 @@ const SigninComponent = () => {
       // redirect: "follow",
     };
 
+    // sign in
     try {
       const response = await fetch(
         "https://user-api.playingwithml.com/sign-in",
@@ -40,6 +41,7 @@ const SigninComponent = () => {
       });
     } catch (err) {
       console.error(err);
+      return;
     }
   };
 

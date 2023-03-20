@@ -48,7 +48,7 @@ render(
         {/* Header */}
         <header class="flex flex-row p-4 justify-between items-center h-20 bg-gray-800 border-b-4 border-gray-700">
           <Logo />
-          <h2>user: {user().username}</h2>
+          <h2>Welcome, {user().username}!</h2>
         </header>
 
         {/* Center */}
