@@ -4,6 +4,7 @@ import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
 import { location } from "./store/location";
 import { user, logUserOut, isCached } from "./store/user";
+import logoUrl from "../assets/logo.png";
 
 import "./index.css";
 import App from "./App";
@@ -21,11 +22,7 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 const Logo = () => (
   <div class="text-3xl">
     <A href="/" class="flex items-center space-x-3">
-      <img
-        src="/src/assets/logo.png"
-        alt="Neurodeploy logo"
-        class=" w-12 ml-2"
-      />
+      <img src={logoUrl} alt="Neurodeploy logo" class=" w-12 ml-2" />
       <span>Neurodeploy</span>
     </A>
   </div>

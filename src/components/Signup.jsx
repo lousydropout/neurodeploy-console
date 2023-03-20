@@ -3,6 +3,7 @@ import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
+import logoUrl from "../../assets/logo.png";
 
 const ErrorMessage = (props) => (
   <span class="text-red-400 text-right text-sm">{props.error}</span>
@@ -39,11 +40,7 @@ const SignupComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img
-          src="/src/assets/logo.png"
-          alt="Neurodeploy logo"
-          class="w-14 ml-2 mb-6"
-        />
+        <img src={logoUrl} alt="Neurodeploy logo" class="w-14 ml-2 mb-6" />
         <h1 class="text-3xl text-gray-200">Create your account</h1>
         <p class="mt-2 text-center text-sm max-w">
           Already registered?

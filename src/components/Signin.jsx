@@ -2,6 +2,7 @@ import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { updateUser } from "../store/user";
+import logoUrl from "../../assets/logo.png";
 
 const SigninComponent = () => {
   const [fields, setFields] = createStore();
@@ -46,11 +47,7 @@ const SigninComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img
-          src="/src/assets/logo.png"
-          alt="Neurodeploy logo"
-          class="w-14 ml-2 mb-6"
-        />
+        <img src={logoUrl} alt="Neurodeploy logo" class="w-14 ml-2 mb-6" />
         <h1 class="text-3xl text-gray-200">Log in</h1>
         <p class="mt-2 text-center text-sm max-w">
           Don't have an account?
