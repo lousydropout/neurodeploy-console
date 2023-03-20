@@ -37,22 +37,22 @@ const validateFunctions = {
   confirmpassword: confirmPassword,
 };
 
-const validate = (name = null) => {
+const validate = (fields, name = null) => {
   if (name === "password") {
     return {
-      password: validateFunctions.password(),
-      confirmpassword: validateFunctions.confirmpassword(),
+      password: validateFunctions.password(fields),
+      confirmpassword: validateFunctions.confirmpassword(fields),
     };
   } else if (name)
     return {
-      [name]: validateFunctions[name](),
+      [name]: validateFunctions[name](fields),
     };
 
   return {
-    username: validateFunctions.username(),
-    email: validateFunctions.email(),
-    password: validateFunctions.password(),
-    confirmpassword: validateFunctions.confirmpassword(),
+    username: validateFunctions.username(fields),
+    email: validateFunctions.email(fields),
+    password: validateFunctions.password(fields),
+    confirmpassword: validateFunctions.confirmpassword(fields),
   };
 };
 

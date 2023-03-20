@@ -44,15 +44,13 @@ const SigninComponent = () => {
 
   return (
     <div class="flex flex-col">
-      <div class="flex flex-col items-center">
-        <span class="flex items-center mb-6">
-          <img
-            src="/src/assets/logo.png"
-            alt="Neurodeploy logo"
-            class=" w-14 ml-2"
-          />
-          {/* <p class="text-3xl pl-4">Neurodeploy</p> */}
-        </span>
+      {/* header */}
+      <header class="flex flex-col items-center">
+        <img
+          src="/src/assets/logo.png"
+          alt="Neurodeploy logo"
+          class="w-14 ml-2 mb-6"
+        />
         <h1 class="text-3xl text-gray-200">Log in</h1>
         <p class="mt-2 text-center text-sm max-w">
           Don't have an account?
@@ -66,8 +64,9 @@ const SigninComponent = () => {
           .
         </p>
         <hr class="my-4 border-zinc-400" />
-      </div>
+      </header>
 
+      {/* form */}
       <form
         class="h-fit w-96 rounded-md bg-zinc-700 px-8 py-10"
         onSubmit={submit}
@@ -109,9 +108,6 @@ const SigninComponent = () => {
             Log in
           </button>
         </div>
-        {/* <hr class="my-4 border-zinc-500" /> */}
-
-        {/* Let user toggle to create new account */}
       </form>
     </div>
   );
