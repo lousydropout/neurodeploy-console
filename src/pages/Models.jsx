@@ -1,9 +1,9 @@
-import { createSignal, createEffect } from "solid-js";
-import { createStore } from "solid-js/store";
+import { createSignal } from "solid-js";
+import { A } from "@solidjs/router";
 import { setLocation } from "../store/location";
 import { user } from "../store/user";
 
-const USER_API = "https://user-api.playingwithml.com/ml-models";
+const USER_API = "https://user-api.playingwithml.com";
 const API_DOMAIN = "https://api.playingwithml.com";
 
 const [models, setModels] = createSignal([]);
@@ -19,12 +19,11 @@ const getModels = async (token) => {
   };
 
   try {
-    const response = await fetch(
-      "https://user-api.playingwithml.com/ml-models",
-      requestOptions
-    );
+    const response = await fetch(`${USER_API}/ml-models`, requestOptions);
     const results = await response.json();
-    setModels(results["models"]);
+    const x = results["models"];
+    x.sort((a, b) => (a.uploaded_at < b.uploaded_at ? -1 : 1));
+    setModels(x.reverse());
   } catch (err) {
     console.error("error", err);
   }
@@ -69,10 +68,20 @@ const Models = () => {
                 </p>
               </div>
               <div class="flex flex-col justify-between space-y-6 h-full text">
-                <button class="block text-violet-400 border-violet-400 border px-3 py-2 rounded">
+                <A
+                  name={model.model_name}
+                  class="block text-violet-400 border-violet-400 border px-3 py-2 rounded text-center"
+                  href={`/models/${model.model_name}`}
+                >
                   view
-                </button>
-                <button class="block text-red-400 border-red-400 border px-3 py-2 rounded">
+                </A>
+                <button
+                  name={model.model_name}
+                  class="block text-red-400 border-red-400 border px-3 py-2 rounded text-center"
+                  onClick={(e) => {
+                    console.log("delete: ", e.currentTarget.name);
+                  }}
+                >
                   delete
                 </button>
               </div>
