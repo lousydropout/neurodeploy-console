@@ -4,7 +4,6 @@ import { lazy } from "solid-js";
 const Home = lazy(() => import("./pages/Home"));
 const Models = lazy(() => import("./pages/Models"));
 const Settings = lazy(() => import("./pages/Settings"));
-const Logout = lazy(() => import("./pages/Logout"));
 
 function App() {
   return (
@@ -12,7 +11,6 @@ function App() {
       <Route path="/" component={Home}></Route>
       <Route path="/models" component={Models}></Route>
       <Route path="/settings" component={Settings}></Route>
-      <Route path="/logout" component={Logout}></Route>
     </Routes>
   );
 }

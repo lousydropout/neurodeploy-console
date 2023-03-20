@@ -1,10 +1,10 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
 import { lazy } from "solid-js";
-import { Router, Routes, Route, A } from "@solidjs/router";
+import { Router, A } from "@solidjs/router";
 import {} from "solid-js/store";
 import { location } from "./store/location";
-import { user, setUser } from "./store/user";
+import { user } from "./store/user";
 
 import "./index.css";
 import App from "./App";
@@ -35,10 +35,11 @@ const Logo = () => (
 render(
   () => (
     <Router>
-      <Show when={user.loggedIn} fallback={() => Login()}>
+      <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
-        <header class="flex flex-row p-4 items-center h-20 bg-gray-800 border-b-4 border-gray-700">
+        <header class="flex flex-row p-4 justify-between items-center h-20 bg-gray-800 border-b-4 border-gray-700">
           <Logo />
+          <h2>user: {user().username}</h2>
         </header>
 
         {/* Center */}

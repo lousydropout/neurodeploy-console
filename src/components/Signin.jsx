@@ -1,18 +1,7 @@
-import { createSignal } from "solid-js";
 import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
-
-const ErrorMessage = (props) => (
-  <span class="text-red-400 text-right text-sm">{props.error}</span>
-);
-
-const FIELDS = {
-  username: null,
-  email: null,
-  password: null,
-  confirmpassword: null,
-};
+import { updateUser } from "../store/user";
 
 const SigninComponent = () => {
   const [fields, setFields] = createStore();
@@ -22,9 +11,35 @@ const SigninComponent = () => {
     setFields([name], e.currentTarget.value);
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    console.log("log in");
+
+    const myHeaders = new Headers();
+    myHeaders.append("username", fields.username);
+    myHeaders.append("password", fields.password);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      // redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "https://user-api.playingwithml.com/sign-in",
+        requestOptions
+      );
+      const result = await response.json();
+
+      updateUser({
+        loggedIn: true,
+        username: fields.username,
+        jwt: result["token"],
+        expires: result["expiration"],
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
