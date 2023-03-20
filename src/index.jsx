@@ -33,7 +33,13 @@ const Logo = () => (
 
 // Log out user from all tabs if logged out from one
 setInterval(() => {
+  let expires_in = new Date(user().expires);
+  let now = new Date();
+
   if (!isCached() && user().loggedIn) {
+    logUserOut();
+  } else if (expires_in <= now) {
+    console.log("User token expired");
     logUserOut();
   }
 }, 2000);
@@ -57,7 +63,7 @@ render(
             </nav>
 
             {/* Main */}
-            <main className="col-span-1 p-6 mx-auto max-w-[50rem] overflow-auto">
+            <main className="w-full col-span-1 p-6 overflow-auto">
               <App />
             </main>
           </div>
@@ -65,8 +71,17 @@ render(
       </Show>
 
       {/* Footer */}
-      <footer class="flex flex-row p-4 justify-center items-center h-12 bg-gray-800 border-t-4 border-gray-700 text-gray-400">
-        Copyright &copy; 2023 Neurodeploy
+      <footer class="flex flex-row p-4 justify-between items-center h-12 bg-gray-800 border-t-4 border-gray-700 text-gray-400">
+        <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
+        {/* Terms and Conditions */}
+        <div class="flex items-center space-x-2  mx-4">
+          <A class="underline" href="#">
+            terms
+          </A>
+          <A class="underline" href="#">
+            privacy policy
+          </A>
+        </div>
       </footer>
     </Router>
   ),
