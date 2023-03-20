@@ -1,4 +1,5 @@
 import { createSignal } from "solid-js";
+import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 
@@ -115,13 +116,13 @@ const SignupComponent = () => {
         <h1 class="text-3xl text-gray-200">Create your account</h1>
         <p class="mt-2 text-center text-sm max-w">
           Already registered?
-          <a
-            class="mx-1 underline text-indigo-300 font-semibold"
+          <A
+            class="ml-1 underline text-violet-400 font-semibold"
             href="#"
             onClick={toggleShowLogin}
           >
             Sign in
-          </a>
+          </A>
         </p>
 
         <hr class="my-4 border-zinc-400" />
@@ -221,13 +222,13 @@ const SignupComponent = () => {
             class="ml-2 block text-sm text-gray-300"
           >
             I agree to the
-            <a class="mx-1 text-indigo-400 font-semibold underline" href="#">
+            <A class="mx-1 text-violet-400 font-semibold underline" href="#">
               terms
-            </a>
+            </A>
             and
-            <a class="ml-1 text-indigo-400 font-semibold underline" href="#">
+            <A class="ml-1 text-violet-400 font-semibold underline" href="#">
               privacy policy
-            </a>
+            </A>
             .
           </label>
         </div>
@@ -236,11 +237,11 @@ const SignupComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="bg-indigo-600 w-[70%] py-2 mt-2 rounded"
+            class="bg-violet-900 shadow-purple-800 shadow-sm w-[70%] py-2 mt-2 rounded text-gray-300"
             classList={{
-              "bg-opacity-60": !validated(),
-              "text-gray-300": !validated(),
-              "text-opacity-80": !validated(),
+              "bg-opacity-[60%]": !validated(),
+              "text-gray-400": !validated(),
+              // "text-opacity-60": !validated(),
             }}
             disabled={!validated()}
           >

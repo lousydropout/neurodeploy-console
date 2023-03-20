@@ -41,13 +41,13 @@ const SigninComponent = () => {
         <h1 class="text-3xl text-gray-200">Log in</h1>
         <p class="mt-2 text-center text-sm max-w">
           Don't have an account?
-          <a
-            class="ml-1 underline text-indigo-300 font-semibold"
+          <A
+            class="ml-1 underline text-violet-400 font-semibold"
             href="#"
             onClick={toggleShowLogin}
           >
             Register here
-          </a>
+          </A>
           .
         </p>
         <hr class="my-4 border-zinc-400" />
@@ -87,7 +87,10 @@ const SigninComponent = () => {
 
         {/* Submit button */}
         <div className="flex justify-center">
-          <button type="submit" class="bg-indigo-600 w-[70%] py-2 mt-2 rounded">
+          <button
+            type="submit"
+            class="bg-violet-900 shadow-purple-800 shadow-sm w-[70%] py-2 mt-8 rounded text-gray-300"
+          >
             Log in
           </button>
         </div>
