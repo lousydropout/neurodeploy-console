@@ -1,6 +1,6 @@
 import { location } from "../store/location";
 import { A } from "@solidjs/router";
-import { logoutUser } from "../store/user";
+import { logUserOut } from "../store/user";
 import { icons } from "../assets/icons";
 
 const top_navs = [
@@ -48,7 +48,7 @@ const BottomNav = () => {
           "flex justify-start items-center px-4 py-4 hover:bg-gray-600" +
           onPage("Logout", " underline bg-gray-600")
         }
-        onClick={() => logoutUser()}
+        onClick={() => logUserOut()}
       >
         <div class="pr-4">{icons.logout}</div>
         <div>Logout</div>

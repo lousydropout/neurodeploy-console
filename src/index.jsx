@@ -2,9 +2,8 @@
 import { render } from "solid-js/web";
 import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
-import {} from "solid-js/store";
 import { location } from "./store/location";
-import { user } from "./store/user";
+import { user, logUserOut, isCached } from "./store/user";
 
 import "./index.css";
 import App from "./App";
@@ -31,6 +30,13 @@ const Logo = () => (
     </A>
   </div>
 );
+
+// Log out user from all tabs if logged out from one
+setInterval(() => {
+  if (!isCached() && user().loggedIn) {
+    logUserOut();
+  }
+}, 2000);
 
 render(
   () => (
