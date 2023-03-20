@@ -6,7 +6,11 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "clear": "aws s3 rm --recursive s3://neurodeploy-console",
+    "copy": "aws s3 cp --recursive ./dist s3://neurodeploy-console",
+    "invalidate_cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E3RLKKLT4VNRTO",
+    "deploy": "pnpm run build; pnpm run clear;  pnpm run copy; pnpm run invalidate_cloudfront"
   },
   "license": "MIT",
   "devDependencies": {
