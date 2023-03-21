@@ -4,6 +4,7 @@ import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
 import { location } from "./store/location";
 import { user, logUserOut, isCached } from "./store/user";
+import { deleteModal } from "./store/deleteModal";
 import logoUrl from "./assets/logo.png";
 
 import "./index.css";
@@ -46,21 +47,27 @@ render(
     <Router>
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
-        <header class="flex flex-row p-4 justify-between items-center h-20 bg-gray-800 border-b-4 border-gray-700">
+        <header
+          class="flex flex-row p-4 justify-between items-center h-20 bg-gray-800 border-b-2 border-gray-700"
+          classList={{ "opacity-70": deleteModal().visible }}
+        >
           <Logo />
           <h2>Welcome, {user().username}!</h2>
         </header>
 
         {/* Center */}
-        <div className="flex h-full overflow-hidden bg-gray-800">
+        <div
+          className="flex h-full overflow-hidden bg-gray-800"
+          classList={{ "opacity-70": deleteModal().visible }}
+        >
           <div class="grid grid-cols-[15rem_1fr] w-full">
             {/* SideNav */}
-            <nav class="col-span-1 flex flex-col justify-between h-full p-6  bg-gray-800 border-r-4 border-gray-700">
+            <nav class="col-span-1 flex flex-col justify-between h-full p-6  bg-gray-800 border-r-2 border-gray-700">
               <Nav />
             </nav>
 
             {/* Main */}
-            <main className="w-full col-span-1 p-6 overflow-auto">
+            <main className="w-full col-span-1 p-12 overflow-auto">
               <App />
             </main>
           </div>
@@ -68,7 +75,10 @@ render(
       </Show>
 
       {/* Footer */}
-      <footer class="flex flex-row p-4 justify-between items-center h-12 bg-gray-800 border-t-4 border-gray-700 text-gray-400">
+      <footer
+        class="flex flex-row p-4 justify-between items-center h-12 bg-gray-800 border-t-2 border-gray-700 text-gray-400"
+        classList={{ "opacity-70": deleteModal().visible }}
+      >
         <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
         <div class="flex items-center space-x-2  mx-4">
