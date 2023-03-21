@@ -6,6 +6,7 @@ const Model = lazy(() => import("./pages/models/[model_name]"));
 const Models = lazy(() => import("./pages/Models"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/models/:model_name" component={Model}></Route>
       <Route path="/settings" component={Settings}></Route>
       <Route path="/privacy" component={Privacy}></Route>
+      <Route path="/terms" component={Terms}></Route>
     </Routes>
   );
 }

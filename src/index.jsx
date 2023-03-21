@@ -72,10 +72,10 @@ render(
         <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
         <div class="flex items-center space-x-2  mx-4">
-          <A class="underline" href="#">
+          <A class="underline" href="/terms">
             terms
           </A>
-          <A class="underline" href="#">
+          <A class="underline" href="/privacy">
             privacy policy
           </A>
         </div>

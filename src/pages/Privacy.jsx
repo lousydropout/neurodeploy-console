@@ -1,4 +1,7 @@
+import { setLocation } from "../store/location";
+
 export default function () {
+  setLocation("privacy");
   return (
     <div class="privacy">
       <h1>Privacy Policy</h1>
