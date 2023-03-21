@@ -4,7 +4,7 @@ import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
 import { updateUser } from "../store/user";
-import logoUrl from "../../assets/logo.png";
+import logoUrl from "../assets/logo.png";
 
 const ErrorMessage = (props) => (
   <span class="text-red-400 text-right text-sm">{props.error}</span>

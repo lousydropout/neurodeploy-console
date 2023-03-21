@@ -2,7 +2,7 @@ import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { updateUser } from "../store/user";
-import logoUrl from "../../assets/logo.png";
+import logoUrl from "../assets/logo.png";
 
 const SigninComponent = () => {
   const [fields, setFields] = createStore();
