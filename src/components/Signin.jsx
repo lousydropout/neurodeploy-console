@@ -1,3 +1,4 @@
+import { createSignal, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
@@ -5,6 +6,7 @@ import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
 
 const SigninComponent = () => {
+  const [error, setError] = createSignal(null);
   const [fields, setFields] = createStore();
 
   const updateField = (e) => {
@@ -14,6 +16,7 @@ const SigninComponent = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+    setError(null); // reset error
 
     const myHeaders = new Headers();
     myHeaders.append("username", fields.username);
@@ -32,17 +35,25 @@ const SigninComponent = () => {
         requestOptions
       );
       const result = await response.json();
+      console.log("result:  ", result);
 
-      updateUser({
-        loggedIn: true,
-        username: fields.username,
-        jwt: result["token"],
-        expires: result["expiration"],
-      });
+      if ("errorMessage" in result) {
+        console.error(result["errorMessage"]);
+        setError("Invalid username and/or password.");
+        return;
+      }
     } catch (err) {
       console.error(err);
+      setError("Invalid username and/or password.");
       return;
     }
+
+    updateUser({
+      loggedIn: true,
+      username: fields.username,
+      jwt: result["token"],
+      expires: result["expiration"],
+    });
   };
 
   return (
@@ -107,6 +118,11 @@ const SigninComponent = () => {
             Log in
           </button>
         </div>
+
+        {/* Show errors */}
+        <Show when={error()}>
+          <div class="mt-4 flex justify-center text-red-400">{error()}</div>
+        </Show>
       </form>
     </div>
   );
