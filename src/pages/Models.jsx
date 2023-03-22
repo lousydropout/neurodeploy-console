@@ -67,18 +67,18 @@ const Models = () => {
       <Show when={deleteModal().visible}>
         <div
           use:clickOutside={() => setDeleteModal(false)}
-          class="fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-gray-300 text-black text-xl rounded-md"
+          class="text-xl fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-gray-300 text-black rounded-md"
         >
           Are you sure you wanna delete model{" "}
           <span class="font-semibold">{deleteModal().model_name}</span>?
           <div class="flex justify-between w-full mt-12">
             <button
-              class="px-4 py-2 border rounded-md border-gray-200 text-gray-200 bg-gray-400"
+              class="px-4 py-2 text-gray-200 bg-gray-400 border border-gray-200 rounded-md"
               onClick={() => setDeleteModal(modelNull)}
             >
               Cancel
             </button>
-            <button class="px-4 py-2 border rounded-md border-red-700 text-red-700">
+            <button class="px-4 py-2 text-red-700 border border-red-700 rounded-md">
               Delete
             </button>
           </div>
@@ -88,10 +88,10 @@ const Models = () => {
         <ul class="mx-auto max-w-[70rem]">
           <For each={models()}>
             {(model) => (
-              <li class="mt-4 mb-10 flex justify-between space-x-12">
-                <div class="py-8 px-10 w-full bg-gray-700 rounded-lg">
+              <li class="flex justify-between mt-4 mb-10 space-x-12">
+                <div class="w-full px-10 py-8 bg-gray-700 rounded-lg">
                   <h3 class="text-xl font-semibold">{model.model_name}</h3>
-                  <hr class="border-gray-400 my-2 mb-4" />
+                  <hr class="my-2 mb-4 border-gray-400" />
                   <p>
                     <span class="text-gray-400">model type: </span>
                     {model.model_type}
@@ -106,22 +106,22 @@ const Models = () => {
                   </p>
                   <p>
                     <span class="text-gray-400">model endpoint: </span>
-                    <span class="underline text-gray-400">
+                    <span class="text-gray-400 underline">
                       {`${API_DOMAIN}/${user().username}/${model.model_name}`}
                     </span>
                   </p>
                 </div>
-                {/* <div class="flex flex-col justify-between space-y-6 h-full text"> */}
+                {/* <div class="flex flex-col justify-between h-full space-y-6 text"> */}
                 {/* <A
                     name={model.model_name}
-                    class="block text-violet-400 border-violet-400 border px-3 py-2 rounded text-center"
+                    class="block px-3 py-2 text-center border rounded text-violet-400 border-violet-400"
                     href={`/models/${model.model_name}`}
                   >
                     view
                   </A> */}
                 <button
                   name={model.model_name}
-                  class="block text-red-400 border-red-400 border px-6 py-2 rounded text-center"
+                  class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"
                   onClick={(e) => {
                     setDeleteModal({
                       visible: true,

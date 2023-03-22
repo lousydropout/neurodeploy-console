@@ -1,7 +1,7 @@
 import { location } from "../store/location";
 import { A } from "@solidjs/router";
 import { logUserOut } from "../store/user";
-import { icons } from "../assets/icons";
+import { icons } from "../../assets/icons";
 
 // navs
 const top_navs = [
@@ -31,7 +31,7 @@ const NavGroup = (props) => (
       {(page) => (
         <A
           href={page.route}
-          class="flex justify-start items-center px-4 py-4 hover:bg-gray-600"
+          class="flex items-center justify-start px-4 py-4 hover:bg-gray-600"
           classList={{ "underline bg-gray-600": location() === page.name }}
           onClick={page.click}
         >

@@ -4,10 +4,10 @@ import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
 import { updateUser } from "../store/user";
-import logoUrl from "../assets/logo.png";
+import logoUrl from "../../assets/logo.png";
 
 const ErrorMessage = (props) => (
-  <span class="text-red-400 text-right text-sm">{props.error}</span>
+  <span class="text-sm text-right text-red-400">{props.error}</span>
 );
 
 const FIELDS = {
@@ -69,12 +69,12 @@ const SignupComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img src={logoUrl} alt="Neurodeploy logo" class="w-14 ml-2 mb-6" />
+        <img src={logoUrl} alt="Neurodeploy logo" class="mb-6 ml-2 w-14" />
         <h1 class="text-3xl text-gray-200">Create your account</h1>
-        <p class="mt-2 text-center text-sm max-w">
+        <p class="mt-2 text-sm text-center max-w">
           Already registered?
           <A
-            class="ml-1 underline text-violet-400 font-semibold"
+            class="ml-1 font-semibold underline text-violet-400"
             href="#"
             onClick={toggleShowLogin}
           >
@@ -87,11 +87,11 @@ const SignupComponent = () => {
 
       {/* form */}
       <form
-        class="h-fit w-96 rounded-md bg-zinc-700 px-8 py-10"
+        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}
-        <label for="username" class="flex justify-between  text-gray-300">
+        <label for="username" class="flex justify-between text-gray-300 ">
           Username:
           <Show when={errors().username}>
             <ErrorMessage error={errors().username} />
@@ -102,7 +102,7 @@ const SignupComponent = () => {
           id="username"
           type="username"
           placeholder="Username"
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300 ring-indigo-900"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded ring-indigo-900"
           required
           onInput={updateField}
           onBlur={updateField}
@@ -120,7 +120,7 @@ const SignupComponent = () => {
           id="email"
           type="email"
           placeholder="Email"
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
           required
           onBlur={updateField}
           onInput={(e) => {
@@ -142,7 +142,7 @@ const SignupComponent = () => {
           placeholder="Password"
           required
           minlength="8"
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
           onInput={(e) => {
             (errors().password || errors().confirmpassword) && updateField(e);
           }}
@@ -162,7 +162,7 @@ const SignupComponent = () => {
           id="confirmpassword"
           placeholder="Confirm Password"
           required
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
           onInput={updateField}
           onBlur={updateField}
           onKeyUp={updateField}
@@ -178,14 +178,14 @@ const SignupComponent = () => {
           />
           <label
             for="terms-and-privacy"
-            class="ml-2 block text-sm text-gray-300"
+            class="block ml-2 text-sm text-gray-300"
           >
             I agree to the
-            <A class="mx-1 text-violet-400 font-semibold underline" href="#">
+            <A class="mx-1 font-semibold underline text-violet-400" href="#">
               terms
             </A>
             and
-            <A class="ml-1 text-violet-400 font-semibold underline" href="#">
+            <A class="ml-1 font-semibold underline text-violet-400" href="#">
               privacy policy
             </A>
             .

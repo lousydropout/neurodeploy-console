@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 const modelNull = {
   visible: false,
-  modal_name: null,
+  model_name: "",
 };
 const [deleteModal, setDeleteModal] = createSignal(modelNull);
 

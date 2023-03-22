@@ -1,8 +1,11 @@
 import { showLogin } from "../store/showLogin";
 import Signin from "../components/Signin";
 import Signup from "../components/Signup";
+import { grabfromCache } from "../store/user";
 
 const Login = () => {
+  grabfromCache();
+
   return (
     <div class="h-full bg-gray-800">
       <div class="flex justify-center mt-24">

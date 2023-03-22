@@ -2,7 +2,7 @@ import { A } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { updateUser } from "../store/user";
-import logoUrl from "../assets/logo.png";
+import logoUrl from "../../assets/logo.png";
 
 const SigninComponent = () => {
   const [fields, setFields] = createStore();
@@ -49,12 +49,12 @@ const SigninComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img src={logoUrl} alt="Neurodeploy logo" class="w-14 ml-2 mb-6" />
+        <img src={logoUrl} alt="Neurodeploy logo" class="mb-6 ml-2 w-14" />
         <h1 class="text-3xl text-gray-200">Log in</h1>
-        <p class="mt-2 text-center text-sm max-w">
+        <p class="mt-2 text-sm text-center max-w">
           Don't have an account?
           <A
-            class="ml-1 underline text-violet-400 font-semibold"
+            class="ml-1 font-semibold underline text-violet-400"
             href="#"
             onClick={toggleShowLogin}
           >
@@ -67,11 +67,11 @@ const SigninComponent = () => {
 
       {/* form */}
       <form
-        class="h-fit w-96 rounded-md bg-zinc-700 px-8 py-10"
+        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}
-        <label for="username" class="flex justify-between  text-gray-300">
+        <label for="username" class="flex justify-between text-gray-300 ">
           Username:
         </label>
         <input
@@ -79,7 +79,7 @@ const SigninComponent = () => {
           id="username"
           type="username"
           placeholder="Username"
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300 ring-indigo-900"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded ring-indigo-900"
           required
           onInput={updateField}
         />
@@ -94,7 +94,7 @@ const SigninComponent = () => {
           id="password"
           placeholder="Password"
           required
-          class="text-black p-2 mt-1 mb-4 rounded w-full bg-gray-300"
+          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
           onInput={updateField}
         />
 

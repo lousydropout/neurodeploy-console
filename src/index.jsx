@@ -3,9 +3,9 @@ import { render } from "solid-js/web";
 import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
 import { location } from "./store/location";
-import { user, logUserOut, isCached } from "./store/user";
+import { user, grabfromCache } from "./store/user";
 import { deleteModal } from "./store/deleteModal";
-import logoUrl from "./assets/logo.png";
+import logoUrl from "../assets/logo.png";
 
 import "./index.css";
 import App from "./App";
@@ -23,7 +23,7 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 const Logo = () => (
   <div class="text-3xl">
     <A href="/" class="flex items-center space-x-3">
-      <img src={logoUrl} alt="Neurodeploy logo" class=" w-12 ml-2" />
+      <img src={logoUrl} alt="Neurodeploy logo" class="w-12 ml-2 " />
       <span>Neurodeploy</span>
     </A>
   </div>
@@ -31,16 +31,21 @@ const Logo = () => (
 
 // Log out user from all tabs if logged out from one
 setInterval(() => {
-  let expires_in = new Date(user().expires);
-  let now = new Date();
+  const cached = grabfromCache();
 
-  if (!isCached() && user().loggedIn) {
-    logUserOut();
-  } else if (expires_in <= now) {
+  let now = new Date();
+  let expires_on = Date(user().expires);
+
+  if (!cached && user().loggedIn) {
+    console.log("here");
+    // logUserOut();
+  } else if (expires_on <= now) {
     console.log("User token expired");
-    logUserOut();
+    // logUserOut();
+  } else {
+    console.log("ok");
   }
-}, 2000);
+}, 5000);
 
 render(
   () => (
@@ -48,7 +53,7 @@ render(
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
         <header
-          class="flex flex-row p-4 justify-between items-center h-20 bg-gray-800 border-b-2 border-gray-700"
+          class="flex flex-row items-center justify-between h-20 p-4 bg-gray-800 border-b-2 border-gray-700"
           classList={{ "opacity-70": deleteModal().visible }}
         >
           <Logo />
@@ -62,12 +67,12 @@ render(
         >
           <div class="grid grid-cols-[15rem_1fr] w-full">
             {/* SideNav */}
-            <nav class="col-span-1 flex flex-col justify-between h-full p-6  bg-gray-800 border-r-2 border-gray-700">
+            <nav class="flex flex-col justify-between h-full p-6 bg-gray-800 border-r-2 border-gray-700 col-span-1 ">
               <Nav />
             </nav>
 
             {/* Main */}
-            <main className="w-full col-span-1 p-12 overflow-auto">
+            <main className="w-full p-12 overflow-auto col-span-1">
               <App />
             </main>
           </div>
@@ -76,12 +81,12 @@ render(
 
       {/* Footer */}
       <footer
-        class="flex flex-row p-4 justify-between items-center h-12 bg-gray-800 border-t-2 border-gray-700 text-gray-400"
+        class="flex flex-row items-center justify-between h-12 p-4 text-gray-400 bg-gray-800 border-t-2 border-gray-700"
         classList={{ "opacity-70": deleteModal().visible }}
       >
         <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
-        <div class="flex items-center space-x-2  mx-4">
+        <div class="flex items-center mx-4 space-x-2 ">
           <A class="underline" href="/terms">
             terms
           </A>

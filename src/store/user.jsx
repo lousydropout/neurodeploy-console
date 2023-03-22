@@ -11,16 +11,20 @@ const LOGGED_OUT = {
 
 const [user, setUser] = createSignal(LOGGED_OUT);
 
-const isCached = () => localStorage.getItem(KEY);
+const grabfromCache = () => {
+  const cache = localStorage.getItem(KEY);
 
-if (isCached()) {
-  const x = JSON.parse(localStorage.getItem(KEY));
-  setUser(x);
-}
+  if (cache && !user().loggedIn) {
+    const x = JSON.parse(cache);
+    setUser(x);
+    return true;
+  }
+  return cache !== null;
+};
 
 const updateUser = (val) => {
-  setUser(val);
   localStorage.setItem(KEY, JSON.stringify(val));
+  setUser(val); // do this after storing in localStorage
 };
 
 const logUserOut = () => {
@@ -28,4 +32,4 @@ const logUserOut = () => {
   localStorage.removeItem(KEY);
 };
 
-export { user, isCached, updateUser, logUserOut };
+export { user, grabfromCache, updateUser, logUserOut };
