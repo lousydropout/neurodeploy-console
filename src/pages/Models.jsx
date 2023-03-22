@@ -67,46 +67,46 @@ const Models = () => {
       <Show when={deleteModal().visible}>
         <div
           use:clickOutside={() => setDeleteModal(false)}
-          class="text-xl fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-gray-300 text-black rounded-md"
+          class="text-xl text-zinc-300 fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
         >
           Are you sure you wanna delete model{" "}
           <span class="font-semibold">{deleteModal().model_name}</span>?
           <div class="flex justify-between w-full mt-12">
             <button
-              class="px-4 py-2 text-gray-200 bg-gray-400 border border-gray-200 rounded-md"
+              class="px-4 py-2 text-gray-300 bg-zinc-700 border border-gray-300 rounded-md"
               onClick={() => setDeleteModal(modelNull)}
             >
               Cancel
             </button>
-            <button class="px-4 py-2 text-red-700 border border-red-700 rounded-md">
+            <button class="px-4 py-2 text-gray-300 bg-red-900  border border-red-800 rounded-md">
               Delete
             </button>
           </div>
         </div>
       </Show>
       <Show when={models().length > 0} fallback={Loading}>
-        <ul class="mx-auto max-w-[70rem]">
+        <ul class="mx-auto max-w-[70rem] text-zinc-100">
           <For each={models()}>
             {(model) => (
               <li class="flex justify-between mt-4 mb-10 space-x-12">
-                <div class="w-full px-10 py-8 bg-gray-700 rounded-lg">
+                <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
                   <h3 class="text-xl font-semibold">{model.model_name}</h3>
-                  <hr class="my-2 mb-4 border-gray-400" />
-                  <p>
-                    <span class="text-gray-400">model type: </span>
+                  <hr class="my-2 mb-4 border-gray-900" />
+                  <p class="font-semibold">
+                    <span class="text-gray-300 mr-1">model type: </span>
                     {model.model_type}
                   </p>
-                  <p>
-                    <span class="text-gray-400">persistence type: </span>
+                  <p class="font-semibold">
+                    <span class="text-gray-300 mr-1">persistence type: </span>
                     {model.persistence_type}
                   </p>
-                  <p>
-                    <span class="text-gray-400">uploaded at: </span>
+                  <p class="font-semibold">
+                    <span class="text-gray-300 mr-1">uploaded at: </span>
                     {formatDatetime(model.uploaded_at)}
                   </p>
-                  <p>
-                    <span class="text-gray-400">model endpoint: </span>
-                    <span class="text-gray-400 underline">
+                  <p class="font-semibold">
+                    <span class="text-gray-300 mr-1">model endpoint: </span>
+                    <span class="text-gray-300 underline">
                       {`${API_DOMAIN}/${user().username}/${model.model_name}`}
                     </span>
                   </p>

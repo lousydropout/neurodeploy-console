@@ -87,7 +87,7 @@ const SignupComponent = () => {
 
       {/* form */}
       <form
-        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-700"
+        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-600"
         onSubmit={submit}
       >
         {/* username */}
@@ -102,7 +102,7 @@ const SignupComponent = () => {
           id="username"
           type="username"
           placeholder="Username"
-          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded ring-indigo-900"
+          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
           required
           onInput={updateField}
           onBlur={updateField}
@@ -120,7 +120,7 @@ const SignupComponent = () => {
           id="email"
           type="email"
           placeholder="Email"
-          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
+          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
           required
           onBlur={updateField}
           onInput={(e) => {
@@ -142,7 +142,7 @@ const SignupComponent = () => {
           placeholder="Password"
           required
           minlength="8"
-          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
+          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
           onInput={(e) => {
             (errors().password || errors().confirmpassword) && updateField(e);
           }}
@@ -162,7 +162,7 @@ const SignupComponent = () => {
           id="confirmpassword"
           placeholder="Confirm Password"
           required
-          class="w-full p-2 mt-1 mb-4 text-black bg-gray-300 rounded"
+          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
           onInput={updateField}
           onBlur={updateField}
           onKeyUp={updateField}

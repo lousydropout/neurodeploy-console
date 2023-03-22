@@ -53,8 +53,8 @@ render(
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
         <header
-          class="flex flex-row items-center justify-between h-20 p-4 bg-gray-800 border-b-2 border-gray-700"
-          classList={{ "opacity-70": deleteModal().visible }}
+          class="flex flex-row items-center justify-between h-20 p-4 bg-zinc-800 border-b-2 border-zinc-700"
+          classList={{ "opacity-[85%]": deleteModal().visible }}
         >
           <Logo />
           <h2>Welcome, {user().username}!</h2>
@@ -62,12 +62,12 @@ render(
 
         {/* Center */}
         <div
-          className="flex h-full overflow-hidden bg-gray-800"
-          classList={{ "opacity-70": deleteModal().visible }}
+          className="flex h-full overflow-hidden bg-zinc-800"
+          classList={{ "opacity-[85%]": deleteModal().visible }}
         >
           <div class="grid grid-cols-[15rem_1fr] w-full">
             {/* SideNav */}
-            <nav class="flex flex-col justify-between h-full p-6 bg-gray-800 border-r-2 border-gray-700 col-span-1 ">
+            <nav class="flex flex-col justify-between h-full p-6 bg-zinc-800 border-r-2 border-zinc-700 col-span-1 ">
               <Nav />
             </nav>
 
@@ -81,8 +81,8 @@ render(
 
       {/* Footer */}
       <footer
-        class="flex flex-row items-center justify-between h-12 p-4 text-gray-400 bg-gray-800 border-t-2 border-gray-700"
-        classList={{ "opacity-70": deleteModal().visible }}
+        class="flex flex-row items-center justify-between h-12 p-4 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
+        classList={{ "opacity-[85%]": deleteModal().visible }}
       >
         <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}

@@ -5,7 +5,7 @@ import { icons } from "../../assets/icons";
 
 // navs
 const top_navs = [
-  { name: "Home", route: "/", icon: icons.home, click: null },
+  // { name: "Home", route: "/", icon: icons.home, click: null },
   { name: "Models", route: "/models", icon: icons.models, click: null },
 ];
 
@@ -26,13 +26,13 @@ const bottom_navs = [
 
 // Nav group
 const NavGroup = (props) => (
-  <section>
+  <section class="">
     <For each={props.nav_items}>
       {(page) => (
         <A
           href={page.route}
-          class="flex items-center justify-start px-4 py-4 hover:bg-gray-600"
-          classList={{ "underline bg-gray-600": location() === page.name }}
+          class="flex items-center justify-start px-4 py-4 hover:bg-zinc-600"
+          classList={{ "underline bg-zinc-600": location() === page.name }}
           onClick={page.click}
         >
           <div class="pr-4">{page.icon}</div>
