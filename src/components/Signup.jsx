@@ -87,7 +87,7 @@ const SignupComponent = () => {
 
       {/* form */}
       <form
-        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-600"
+        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}
@@ -196,10 +196,11 @@ const SignupComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="bg-violet-900 shadow-purple-800 shadow-sm w-[70%] py-2 mt-2 rounded text-gray-300"
-            classList={{
-              "bg-opacity-[60%] text-gray-400": !validated(errors()),
-            }}
+            class="bg-violet-900 shadow-zinc-900 shadow-sm drop-shadow-lg w-[70%] py-2 mt-2 rounded text-gray-200 text-lg"
+            // classList={{
+            //   "bg-opacity-[65%] text-gray-400 drop-shadow-none shadow-none":
+            //     !validated(errors()),
+            // }}
             disabled={!validated(errors())}
           >
             Submit
