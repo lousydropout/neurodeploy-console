@@ -196,11 +196,11 @@ const SignupComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="bg-violet-900 shadow-zinc-900 shadow-sm drop-shadow-lg w-[70%] py-2 mt-2 rounded text-gray-200 text-lg"
-            // classList={{
-            //   "bg-opacity-[65%] text-gray-400 drop-shadow-none shadow-none":
-            //     !validated(errors()),
-            // }}
+            class="bg-violet-700 bg-opacity-[85%] shadow-zinc-500 shadow-sm drop-shadow-lg w-[70%] py-2 mt-2 rounded text-gray-200 text-lg"
+            classList={{
+              "bg-opacity-[65%] text-gray-400 drop-shadow-none shadow-none":
+                !validated(errors()),
+            }}
             disabled={!validated(errors())}
           >
             Submit
