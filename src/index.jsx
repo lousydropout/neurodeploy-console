@@ -3,7 +3,7 @@ import { render } from "solid-js/web";
 import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
 import { location } from "./store/location";
-import { user, grabfromCache } from "./store/user";
+import { user, grabfromCache, logUserOut } from "./store/user";
 import { deleteModal } from "./store/deleteModal";
 import logoUrl from "../assets/logo.png";
 
@@ -37,13 +37,11 @@ setInterval(() => {
   let expires_on = Date(user().expires);
 
   if (!cached && user().loggedIn) {
-    console.log("here");
-    // logUserOut();
+    console.log("logging user out");
+    logUserOut();
   } else if (expires_on <= now) {
     console.log("User token expired");
-    // logUserOut();
-  } else {
-    console.log("ok");
+    logUserOut();
   }
 }, 5000);
 
