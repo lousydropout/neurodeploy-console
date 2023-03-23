@@ -25,7 +25,6 @@ const SigninComponent = () => {
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
-      // redirect: "follow",
     };
 
     // sign in
@@ -38,8 +37,8 @@ const SigninComponent = () => {
       result = await response.json();
       console.log("result:  ", result);
 
-      if ("errorMessage" in result) {
-        console.error(result["errorMessage"]);
+      if ("error_message" in result) {
+        console.error(result["error_message"]);
         setError("Invalid username and/or password.");
         return;
       }

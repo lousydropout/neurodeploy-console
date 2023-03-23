@@ -1,4 +1,4 @@
-import { onMount, createSignal } from "solid-js";
+import { onMount, createSignal, Show, Switch, Match } from "solid-js";
 import { location, setLocation } from "../store/location";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
@@ -6,7 +6,7 @@ import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
 
 const USER_API = "https://user-api.playingwithml.com";
 
-const [creds, setCreds] = createSignal([]);
+const [creds, setCreds] = createSignal({ ready: false, creds: [] });
 
 const getCreds = async (token) => {
   const myHeaders = new Headers();
@@ -21,7 +21,7 @@ const getCreds = async (token) => {
   try {
     const response = await fetch(`${USER_API}/credentials`, requestOptions);
     const results = await response.json();
-    setCreds(results["creds"]);
+    setCreds({ ready: true, creds: results["creds"] });
     console.log("creds: ", results["creds"]);
   } catch (err) {
     console.error("error", err);
@@ -57,48 +57,55 @@ const Settings = () => {
         </div>
       </Show>
 
-      <Show when={creds().length > 0} fallback={Loading}>
-        <ul class="mx-auto max-w-[70rem] text-zinc-100">
-          <For each={creds()}>
-            {(cred) => (
-              <li class="flex justify-between mt-4 mb-10 space-x-12">
-                <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
-                  <h3 class="text-xl font-semibold">{cred.name}</h3>
-                  <hr class="my-2 mb-4 border-gray-900" />
-                  <p class="font-semibold">
-                    <span class="text-gray-300 mr-1">access_token: </span>
-                    {cred.access_token}
-                  </p>
-                  <p class="font-semibold">
-                    <span class="text-gray-300 mr-1">expires on: </span>
-                    {cred.expiration
-                      ? formatDatetime(cred.expiration)
-                      : "Never"}
-                  </p>
-                  <p class="font-semibold">
-                    <span class="text-gray-300 mr-1">description: </span>
-                    {cred.description}
-                  </p>
-                </div>
-                <button
-                  name={cred.name}
-                  class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"
-                  onClick={(e) => {
-                    setDeleteModal({
-                      visible: true,
-                      name: cred.name,
-                    });
-                    console.log("delete: ", e.currentTarget.name);
-                  }}
-                >
-                  delete
-                </button>
-                {/* </div> */}
-              </li>
-            )}
-          </For>
-        </ul>
-      </Show>
+      <Switch fallback={<Loading />}>
+        {/* let user know if no models were found */}
+        <Match when={creds().ready && creds().creds.length === 0}>
+          <div>No credentials found</div>
+        </Match>
+
+        {/* Show list of models */}
+        <Match when={creds().ready && creds().creds.length > 0}>
+          <ul class="mx-auto max-w-[70rem] text-zinc-100">
+            <For each={creds().creds}>
+              {(cred) => (
+                <li class="flex justify-between mt-4 mb-10 space-x-12">
+                  <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
+                    <h3 class="text-xl font-semibold">{cred.name}</h3>
+                    <hr class="my-2 mb-4 border-gray-900" />
+                    <p class="font-semibold">
+                      <span class="text-gray-300 mr-1">access_token: </span>
+                      {cred.access_token}
+                    </p>
+                    <p class="font-semibold">
+                      <span class="text-gray-300 mr-1">expires on: </span>
+                      {cred.expiration
+                        ? formatDatetime(cred.expiration)
+                        : "Never"}
+                    </p>
+                    <p class="font-semibold">
+                      <span class="text-gray-300 mr-1">description: </span>
+                      {cred.description}
+                    </p>
+                  </div>
+                  <button
+                    name={cred.name}
+                    class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"
+                    onClick={(e) => {
+                      setDeleteModal({
+                        visible: true,
+                        name: cred.name,
+                      });
+                      console.log("delete: ", e.currentTarget.name);
+                    }}
+                  >
+                    delete
+                  </button>
+                </li>
+              )}
+            </For>
+          </ul>
+        </Match>
+      </Switch>
     </>
   );
 };
