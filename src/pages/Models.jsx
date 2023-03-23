@@ -1,23 +1,14 @@
-import { createSignal, Show, onCleanup } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
+import { Loading, clickOutside } from "../helpers/modals";
 
 const USER_API = "https://user-api.playingwithml.com";
 const API_DOMAIN = "https://api.playingwithml.com";
 
 const [models, setModels] = createSignal([]);
-
-const clickOutside = (el, accessor) => {
-  console.log("el: ", el);
-  console.log("accessor: ", accessor);
-  // implement here
-  const onClick = (e) => !el.contains(e.target) && accessor()?.();
-  document.body.addEventListener("click", onClick);
-
-  onCleanup(() => document.body.removeEventListener("click", onClick));
-};
 
 const getModels = async (token) => {
   const myHeaders = new Headers();
@@ -45,21 +36,9 @@ const formatDatetime = (x) => {
   return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
-const Loading = () => <h1>Loading...</h1>;
-
 const Models = () => {
   setLocation("Models");
   getModels(user().jwt);
-
-  const clickOutside = (el, accessor) => {
-    console.log("el: ", el);
-    console.log("accessor: ", accessor);
-    // implement here
-    const onClick = (e) => !el.contains(e.target) && accessor()?.();
-    document.body.addEventListener("click", onClick);
-
-    onCleanup(() => document.body.removeEventListener("click", onClick));
-  };
 
   return (
     <>
@@ -84,6 +63,7 @@ const Models = () => {
           </div>
         </div>
       </Show>
+
       <Show when={models().length > 0} fallback={Loading}>
         <ul class="mx-auto max-w-[70rem] text-zinc-100">
           <For each={models()}>
