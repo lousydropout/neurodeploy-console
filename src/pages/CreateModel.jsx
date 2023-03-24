@@ -1,10 +1,13 @@
 import { A } from "@solidjs/router";
 import { createSignal, createEffect } from "solid-js";
 import { createStore } from "solid-js/store";
+import { user } from "../store/user";
+
+const USER_API = "https://user-api.playingwithml.com";
 
 export default function () {
   const [error, setError] = createSignal(null);
-  const [fields, setFields] = createStore();
+  const [fields, setFields] = createStore(null);
 
   createEffect(() => console.log("fields: ", { ...fields }));
 
@@ -15,18 +18,54 @@ export default function () {
 
   const submit = async (e) => {
     e.preventDefault();
-    if ("mo")
-      if ("file" in fields) {
-        console.log("file in fields");
-      } else {
-        console.log("file not in fields");
-      }
 
-    console.log("submit: ", { ...fields });
+    // make sure that all fields are present
+    if (!("model_name" in fields)) {
+      setError("Please provide a model name");
+      return;
+    }
+    if (!("model_type" in fields)) {
+      setError("Please select a (model_type, file_format) combo");
+      return;
+    }
+    if (!("file" in fields)) {
+      setError("Please select your ML model's file");
+      return;
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${user().jwt}`);
+    const requestOptions = { method: "PUT", headers: myHeaders };
+
+    // Get presigned PUT url
+    try {
+      const response = await fetch(
+        `${USER_API}/ml-models/${fields.model_name}?model_type=${fields.model_type}&persistence_type=${fields.persistence_type}`,
+        requestOptions
+      );
+      const results = await response.json();
+
+      // Upload file
+      const formdata = new FormData();
+      Object.entries(results.fields).forEach(([k, v]) => {
+        formdata.append(k, v);
+      });
+      formdata.append("file", fields.file);
+
+      const uploadOptions = { method: "POST", body: formdata };
+
+      // const file = await fetch(fields.file);
+      const upload_resonse = await fetch(results.url, uploadOptions);
+      console.log("upload_resonse: ", upload_resonse);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const handleClickOrDrop = (f) => {
+  const handleClickOrDrop = async (f) => {
     setFields("file", f);
+    const results = await fetch(f);
+    console.log("results: ", results);
   };
 
   return (
@@ -76,36 +115,56 @@ export default function () {
           </select>
 
           {/* file upload */}
-          <h3 class="flex justify-between text-gray-300 ">
-            Upload your model:
-          </h3>
-          {/* drag and drop */}
-          <label
-            for="model-file"
-            class=" h-80 w-full flex justify-center mt-1 mb-4 items-center  text-gray-300 border-gray-400 border-dashed border rounded hover:bg-zinc-500 cursor-pointer"
-            onDragEnter={(e) => e.preventDefault()}
-            onDragStart={(e) => e.preventDefault()}
-            onDragEnd={(e) => e.preventDefault()}
-            onDragExit={(e) => e.preventDefault()}
-            onDragLeave={(e) => e.preventDefault()}
-            onDragOver={(e) => e.preventDefault()}
-            onChange={(e) => {
-              e.preventDefault();
-              const f = e.explicitOriginalTarget.files[0];
-              handleClickOrDrop(f);
-            }}
-            onDrop={(e) => {
-              e.preventDefault();
-              const f = e.dataTransfer.files[0];
-              handleClickOrDrop(f);
-            }}
+          <Show
+            when={fields.file}
+            fallback={
+              <div class="flex w-full justify-between items-center text-gray-300 ">
+                <span>Upload your model:</span>
+              </div>
+            }
           >
-            <p class="flex justify-between text-gray-300 text-lg font-semibold cursor-pointer">
-              Select File...
-            </p>
+            <div class="flex items-center justify-between">
+              <div class="">
+                File: <span class=" mx-1 underline">{fields.file.name}</span>
+              </div>
+              <button
+                // class="underline text-red-500 px-4 py-1 cursor-pointer"
+                class="border border-red-600 text-red-600 rounded px-4 py-1 cursor-pointer"
+                onClick={(e) => setFields("file", null)}
+              >
+                remove file
+              </button>
+            </div>
+          </Show>
 
-            <input id="model-file" class="w-fit p-4" type="file" />
-          </label>
+          {/* drag and drop */}
+          <Show when={!fields.file}>
+            <label
+              for="model-file"
+              class="h-80 w-full flex justify-center mt-1 mb-4 items-center border-gray-400 border-dashed border rounded hover:bg-zinc-500 cursor-pointer"
+              onDragEnter={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+              onDragEnd={(e) => e.preventDefault()}
+              onDragExit={(e) => e.preventDefault()}
+              onDragLeave={(e) => e.preventDefault()}
+              onDragOver={(e) => e.preventDefault()}
+              onChange={(e) => {
+                e.preventDefault();
+                const f = e.explicitOriginalTarget.files[0];
+                handleClickOrDrop(f);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                const f = e.dataTransfer.files[0];
+                handleClickOrDrop(f);
+              }}
+            >
+              <p class="text-gray-300 text-lg font-semibold cursor-pointer">
+                Select File...
+              </p>
+              <input id="model-file" class="w-fit p-4" type="file" />
+            </label>
+          </Show>
 
           {/* Submit button */}
           <div className="flex justify-center">
