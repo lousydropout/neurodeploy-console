@@ -11,7 +11,7 @@ const top_navs = [
 
 const bottom_navs = [
   {
-    name: "Settings",
+    name: "Credentials",
     route: "/settings",
     icon: icons.settings,
     click: null,

@@ -28,11 +28,11 @@ const getCreds = async (token) => {
   }
 };
 
-const Settings = () => {
+const Credentials = () => {
   onMount(() => {});
   getCreds(user().jwt);
 
-  setLocation("Settings");
+  setLocation("Credentials");
 
   const deleteCreds = async () => {
     const myHeaders = new Headers();
@@ -156,4 +156,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Credentials;

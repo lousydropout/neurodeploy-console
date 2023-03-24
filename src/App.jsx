@@ -6,7 +6,7 @@ const Model = lazy(() => import("./pages/models/[model_name]"));
 const Models = lazy(() => import("./pages/Models"));
 const CreateModel = lazy(() => import("./pages/CreateModel"));
 const CreateCreds = lazy(() => import("./pages/CreateCreds"));
-const Settings = lazy(() => import("./pages/Settings"));
+const Credentials = lazy(() => import("./pages/Credentials"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 
@@ -17,7 +17,7 @@ function App() {
       <Route path="/models" component={Models}></Route>
       <Route path="/create_model" component={CreateModel}></Route>
       <Route path="/models/:model_name" component={Model}></Route>
-      <Route path="/settings" component={Settings}></Route>
+      <Route path="/credentials" component={Credentials}></Route>
       <Route path="/create_creds" component={CreateCreds}></Route>
       <Route path="/privacy" component={Privacy}></Route>
       <Route path="/terms" component={Terms}></Route>
