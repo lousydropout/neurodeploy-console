@@ -113,7 +113,7 @@ const SigninComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="text-lg font-semibold text-violet-500 border-violet-500 border-2 shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+            class="text-lg font-bold text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
           >
             Log in
           </button>

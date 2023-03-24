@@ -82,7 +82,7 @@ export default function () {
           {/* drag and drop */}
           <label
             for="model-file"
-            class=" h-80 w-full flex justify-center mt-1 mb-4 items-center  text-gray-300 border-gray-400 border-dashed border-2 rounded hover:bg-zinc-500 cursor-pointer"
+            class=" h-80 w-full flex justify-center mt-1 mb-4 items-center  text-gray-300 border-gray-400 border-dashed border rounded hover:bg-zinc-500 cursor-pointer"
             onDragEnter={(e) => e.preventDefault()}
             onDragStart={(e) => e.preventDefault()}
             onDragEnd={(e) => e.preventDefault()}
@@ -111,7 +111,7 @@ export default function () {
           <div className="flex justify-center">
             <button
               type="submit"
-              class="text-lg font-semibold text-violet-500 border-violet-500 border-2 shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+              class="text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
             >
               Create
             </button>

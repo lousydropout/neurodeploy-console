@@ -21,6 +21,11 @@ const SignupComponent = () => {
   const [fields, setFields] = createStore();
   const [errors, setErrors] = createSignal(FIELDS);
 
+  const updateCheckbox = (e) => {
+    const name = e.currentTarget.name;
+    setFields([name], e.currentTarget.checked);
+  };
+
   const updateField = (e) => {
     const name = e.currentTarget.name;
     setFields([name], e.currentTarget.value);
@@ -172,9 +177,10 @@ const SignupComponent = () => {
         <div class="flex items-center mt-6 mb-2">
           <input
             id="terms-and-privacy"
-            name="terms-and-privacy"
+            name="terms_and_privacy"
             type="checkbox"
             required
+            onInput={updateCheckbox}
           />
           <label
             for="terms-and-privacy"
@@ -196,10 +202,13 @@ const SignupComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="text-lg font-semibold text-violet-500 border-violet-500 border-2 shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+            class="mt-4 py-2 text-lg border w-[70%] rounded"
             classList={{
-              "text-violet-400 border-violet-400 text-opacity-70 bg-opacity-70 border-opacity-70 font-light":
+              "text-normal text-violet-400 border-violet-400 text-opacity-50 border-opacity-50 font-light":
                 !validated(errors()),
+              "font-bold text-violet-500 border-violet-500": validated(
+                errors()
+              ),
             }}
             disabled={!validated(errors())}
           >
