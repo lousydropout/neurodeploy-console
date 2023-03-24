@@ -25,7 +25,6 @@ const getModels = async (token) => {
     const results = await response.json();
     const x = results["models"];
     x.sort((a, b) => (a.uploaded_at < b.uploaded_at ? -1 : 1));
-    console.log("x: ", x);
     setModels({ ready: true, models: x.reverse() });
   } catch (err) {
     console.error("error", err);
@@ -120,14 +119,6 @@ const Models = () => {
                       </span>
                     </p>
                   </div>
-                  {/* <div class="flex flex-col justify-between h-full space-y-6 text"> */}
-                  {/* <A
-                    name={model.model_name}
-                    class="block px-3 py-2 text-center border rounded text-violet-400 border-violet-400"
-                    href={`/models/${model.model_name}`}
-                  >
-                    view
-                  </A> */}
                   <button
                     name={model.model_name}
                     class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"

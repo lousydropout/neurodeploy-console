@@ -54,7 +54,7 @@ export default function () {
 
           {/* model type */}
           <label for="model-type" class="flex justify-between text-gray-300 ">
-            Model + persistence type:
+            Model type + file format:
           </label>
           <select
             class="mt-1 mb-4 w-full px-3 py-2 rounded cursor-pointer  text-black"
@@ -69,10 +69,10 @@ export default function () {
             }}
           >
             <option value="" disabled selected>
-              Select a Language
+              Select a (model_type, file_format) combination
             </option>
-            <option value="scikit-learn|pickle">Scikit-learn + pickle</option>
-            <option value="tensorflow|h5">Tensorflow + h5</option>
+            <option value="scikit-learn|pickle">(Scikit-learn, pickle)</option>
+            <option value="tensorflow|h5">(Tensorflow, h5)</option>
           </select>
 
           {/* file upload */}
@@ -101,7 +101,7 @@ export default function () {
             }}
           >
             <p class="flex justify-between text-gray-300 text-lg font-semibold cursor-pointer">
-              Browse...
+              Select File...
             </p>
 
             <input id="model-file" class="w-fit p-4" type="file" />
