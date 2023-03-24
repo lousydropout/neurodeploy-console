@@ -36,9 +36,9 @@ const Settings = () => {
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Credentials</h2>
-      <Show when={deleteModal().visible}>
+      <Show when={deleteModal().visible === "delete"}>
         <div
-          use:clickOutside={() => setDeleteModal(false)}
+          use:clickOutside={() => setDeleteModal(modelNull)}
           class="text-xl text-zinc-300 fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
         >
           Are you sure you wanna delete credential{" "}

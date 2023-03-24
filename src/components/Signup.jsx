@@ -196,9 +196,9 @@ const SignupComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="bg-violet-700 bg-opacity-[85%] shadow-zinc-500 shadow-sm drop-shadow-lg w-[70%] py-2 mt-2 rounded text-gray-200 text-lg"
+            class="text-lg font-semibold text-violet-500 border-violet-500 border-2 shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
             classList={{
-              "bg-opacity-[65%] text-gray-400 drop-shadow-none shadow-none":
+              "text-violet-400 border-violet-400 text-opacity-70 bg-opacity-70 border-opacity-70 font-light":
                 !validated(errors()),
             }}
             disabled={!validated(errors())}

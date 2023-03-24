@@ -44,13 +44,13 @@ const Models = () => {
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Models</h2>
-      <Show when={deleteModal().visible}>
+      <Show when={deleteModal().visible == "delete"}>
         <div
-          use:clickOutside={() => setDeleteModal(false)}
+          use:clickOutside={() => setDeleteModal(modelNull)}
           class="text-xl text-zinc-300 fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
         >
           Are you sure you wanna delete model{" "}
-          <span class="font-semibold">{deleteModal().model_name}</span>?
+          <span class="font-semibold">{deleteModal().name}</span>?
           <div class="flex justify-between w-full mt-12">
             <button
               class="px-4 py-2 text-gray-300 bg-zinc-700 border border-gray-300 rounded-md"
@@ -64,6 +64,27 @@ const Models = () => {
           </div>
         </div>
       </Show>
+
+      <A
+        class="flex justify-between w-fit space-x-2 px-4 py-3 mb-10 text-violet-400 border border-violet-400 hover:text-violet-300 hover:border-violet-300 rounded-md"
+        href="/create_model"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+          />
+        </svg>
+        <span>New model</span>
+      </A>
 
       <Switch fallback={<Loading />}>
         {/* let user know if no models were found */}
@@ -112,8 +133,8 @@ const Models = () => {
                     class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"
                     onClick={(e) => {
                       setDeleteModal({
-                        visible: true,
-                        model_name: model.model_name,
+                        visible: "delete",
+                        name: model.model_name,
                       });
                       console.log("delete: ", e.currentTarget.name);
                     }}
