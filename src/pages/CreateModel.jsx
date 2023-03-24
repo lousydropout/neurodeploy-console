@@ -129,7 +129,7 @@ export default function () {
               </div>
               <button
                 // class="underline text-red-500 px-4 py-1 cursor-pointer"
-                class="border border-red-600 text-red-600 rounded px-4 py-1 cursor-pointer"
+                class="border border-red-600 text-red-600 hover:border-red-500 hover:text-red-500 rounded px-4 py-1 cursor-pointer"
                 onClick={(e) => setFields("file", null)}
               >
                 remove file
@@ -170,7 +170,7 @@ export default function () {
           <div className="flex justify-center">
             <button
               type="submit"
-              class="text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+              class="text-lg text-violet-500 border-violet-500 hover:text-violet-400 hover:border-violet-400 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
             >
               Create
             </button>

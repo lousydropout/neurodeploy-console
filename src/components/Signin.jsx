@@ -65,7 +65,7 @@ const SigninComponent = () => {
         <p class="mt-2 text-sm text-center max-w">
           Don't have an account?
           <A
-            class="ml-1 font-semibold underline text-violet-400"
+            class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
             href="#"
             onClick={toggleShowLogin}
           >
@@ -113,7 +113,7 @@ const SigninComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="text-lg font-bold text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+            class="text-lg font-bold text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded hover:text-violet-300 hover:border-violet-300"
           >
             Log in
           </button>

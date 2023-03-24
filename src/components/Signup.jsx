@@ -79,7 +79,7 @@ const SignupComponent = () => {
         <p class="mt-2 text-sm text-center max-w">
           Already registered?
           <A
-            class="ml-1 font-semibold underline text-violet-400"
+            class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
             href="#"
             onClick={toggleShowLogin}
           >
@@ -206,9 +206,8 @@ const SignupComponent = () => {
             classList={{
               "text-normal text-violet-400 border-violet-400 text-opacity-50 border-opacity-50 font-light":
                 !validated(errors()),
-              "font-bold text-violet-500 border-violet-500": validated(
-                errors()
-              ),
+              "font-bold text-violet-500 border-violet-500 hover:text-violet-300 hover:border-violet-300":
+                validated(errors()),
             }}
             disabled={!validated(errors())}
           >

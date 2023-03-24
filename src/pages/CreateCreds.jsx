@@ -26,6 +26,8 @@ export default function () {
     try {
       const response = await fetch(`${USER_API}/credentials`, requestOptions);
       const results = await response.json();
+      console.log("creds results: ", results);
+      // Show creds to user
     } catch (e) {
       console.error(e);
     }
@@ -84,6 +86,10 @@ export default function () {
             <div class="mt-4 flex justify-center text-red-400">{error()}</div>
           </Show>
         </form>
+
+        {/* <div>
+          <h2>Creds info</h2>
+        </div> */}
       </div>
     </>
   );

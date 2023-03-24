@@ -71,13 +71,13 @@ const Models = () => {
           <span class="font-semibold">{deleteModal().name}</span>?
           <div class="flex justify-between w-full mt-12">
             <button
-              class="px-4 py-2 text-gray-300 bg-zinc-700 border border-gray-300 rounded-md"
+              class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
               onClick={() => setDeleteModal(modelNull)}
             >
               Cancel
             </button>
             <button
-              class="px-4 py-2 text-gray-300 bg-red-900  border border-red-800 rounded-md"
+              class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
               onClick={deleteModel}
             >
               Delete
@@ -143,7 +143,7 @@ const Models = () => {
                   </div>
                   <button
                     name={model.model_name}
-                    class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded"
+                    class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
                     onClick={(e) => {
                       setDeleteModal({
                         visible: "delete",
