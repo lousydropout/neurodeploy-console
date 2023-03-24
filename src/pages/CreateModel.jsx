@@ -54,12 +54,12 @@ export default function () {
 
       const uploadOptions = { method: "POST", body: formdata };
 
-      // const file = await fetch(fields.file);
       const upload_resonse = await fetch(results.url, uploadOptions);
-      console.log("upload_resonse: ", upload_resonse);
     } catch (e) {
       console.error(e);
     }
+
+    window.location.href = "/models";
   };
 
   const handleClickOrDrop = async (f) => {

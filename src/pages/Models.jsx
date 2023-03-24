@@ -36,6 +36,25 @@ const formatDatetime = (x) => {
   return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
+const deleteModel = async () => {
+  const modelName = deleteModal().name;
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${user().jwt}`);
+
+  try {
+    const response = await fetch(`${USER_API}/ml-models/${modelName}`, {
+      method: "DELETE",
+      headers: myHeaders,
+    });
+    const results = await response.json();
+    console.log("delete model results: ", results);
+  } catch (e) {
+    console.error(e);
+  }
+  setDeleteModal(modelNull);
+  getModels(user().jwt);
+};
+
 const Models = () => {
   setLocation("Models");
   getModels(user().jwt);
@@ -57,7 +76,10 @@ const Models = () => {
             >
               Cancel
             </button>
-            <button class="px-4 py-2 text-gray-300 bg-red-900  border border-red-800 rounded-md">
+            <button
+              class="px-4 py-2 text-gray-300 bg-red-900  border border-red-800 rounded-md"
+              onClick={deleteModel}
+            >
               Delete
             </button>
           </div>
@@ -127,7 +149,6 @@ const Models = () => {
                         visible: "delete",
                         name: model.model_name,
                       });
-                      console.log("delete: ", e.currentTarget.name);
                     }}
                   >
                     delete
