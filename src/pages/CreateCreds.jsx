@@ -22,19 +22,19 @@ export default function () {
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
-    myHeaders.append("credential_name", fields.creds_name);
+    myHeaders.append("credentials_name", fields.creds_name);
     myHeaders.append("description", fields.description);
     const requestOptions = { method: "POST", headers: myHeaders };
 
     try {
       const response = await fetch(`${USER_API}/credentials`, requestOptions);
       const results = await response.json();
-      console.log("creds results: ", results);
+
       // Show creds to user
       setDeleteModal({
         visible: "created",
         name: results.credential_name,
-        accessToken: results.access_token,
+        accessKey: results.access_key,
         secretKey: results.secret_key,
         description: results.description,
         expiration: results.expiration,
@@ -53,11 +53,11 @@ export default function () {
         <div class="w-full px-8 py-6 bg-zinc-700 rounded">
           <h3 class="font-semibold">{props.creds.name}</h3>
           <hr class="my-2 mb-4 border-gray-900" />
-          <span class="block text-gray-400 mr-1">access_token: </span>
-          <p class="pl-4 font-semibold">{props.creds.accessToken}</p>
+          <span class="block text-gray-400 mr-1">access_key: </span>
+          <p class="pl-4 font-semibold">{props.creds.accessKey}</p>
           <span class="block text-gray-400 mr-1">secret_key: </span>
           <p class="pl-4 font-semibold">{props.creds.secretKey}</p>
-          <span class="block text-gray-400 mr-1">expires on: </span>
+          <span class="block text-gray-400 mr-1">expires_on: </span>
           <p class="pl-4 font-semibold">
             {props.creds.expiration
               ? formatDatetime(props.creds.expiration)
@@ -72,10 +72,9 @@ export default function () {
         </p>
         <button
           class="block mx-auto items-center text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
-          // class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
           onClick={() => {
             setDeleteModal(modelNull);
-            window.location.href = "/settings";
+            window.location.href = "/credentials";
           }}
         >
           Done
@@ -126,7 +125,7 @@ export default function () {
 
           {/* Submit button */}
           <div className="flex justify-center">
-            <Show when={!deleteModal().visible === "created"}>
+            <Show when={deleteModal().visible !== "created"}>
               <button
                 type="submit"
                 class="text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"

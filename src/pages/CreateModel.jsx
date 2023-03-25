@@ -1,4 +1,4 @@
-import { createSignal, createEffect } from "solid-js";
+import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { params } from "../store/params";
 import { user } from "../store/user";
@@ -8,8 +8,6 @@ const USER_API = `https://user-api.${params.domainName}`;
 export default function () {
   const [error, setError] = createSignal(null);
   const [fields, setFields] = createStore(null);
-
-  createEffect(() => console.log("fields: ", { ...fields }));
 
   const updateField = (e) => {
     const name = e.currentTarget.name;
@@ -54,19 +52,15 @@ export default function () {
 
       const uploadOptions = { method: "POST", body: formdata };
 
-      const upload_resonse = await fetch(results.url, uploadOptions);
+      await fetch(results.url, uploadOptions);
+
+      window.location.href = "/models";
     } catch (e) {
       console.error(e);
     }
-
-    window.location.href = "/models";
   };
 
-  const handleClickOrDrop = async (f) => {
-    setFields("file", f);
-    const results = await fetch(f);
-    console.log("results: ", results);
-  };
+  const handleClickOrDrop = async (f) => setFields("file", f);
 
   return (
     <>
