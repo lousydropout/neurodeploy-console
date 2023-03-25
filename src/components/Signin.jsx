@@ -4,6 +4,7 @@ import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
+import { params } from "../store/params";
 
 const SigninComponent = () => {
   const [error, setError] = createSignal(null);
@@ -31,7 +32,7 @@ const SigninComponent = () => {
     let result;
     try {
       const response = await fetch(
-        "https://user-api.playingwithml.com/sign-in",
+        `https://user-api.${params.domainName}/sign-in`,
         requestOptions
       );
       result = await response.json();

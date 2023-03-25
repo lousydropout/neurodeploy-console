@@ -4,8 +4,9 @@ import { createStore } from "solid-js/store";
 import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
+import { params } from "../store/params";
 
-const USER_API = "https://user-api.playingwithml.com";
+const USER_API = `https://user-api.${params.domainName}`;
 
 export default function () {
   const [error, setError] = createSignal(null);

@@ -1,9 +1,9 @@
-import { A } from "@solidjs/router";
 import { createSignal, createEffect } from "solid-js";
 import { createStore } from "solid-js/store";
+import { params } from "../store/params";
 import { user } from "../store/user";
 
-const USER_API = "https://user-api.playingwithml.com";
+const USER_API = `https://user-api.${params.domainName}`;
 
 export default function () {
   const [error, setError] = createSignal(null);

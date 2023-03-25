@@ -5,6 +5,7 @@ import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
 import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
+import { params } from "../store/params";
 
 const ErrorMessage = (props) => (
   <span class="text-sm text-right text-red-400">{props.error}</span>
@@ -53,7 +54,7 @@ const SignupComponent = () => {
     // sign up
     try {
       const response = await fetch(
-        "https://user-api.playingwithml.com/sign-up",
+        `https://user-api.${params.domainName}/sign-up`,
         requestOptions
       );
       const result = await response.json();

@@ -4,9 +4,10 @@ import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
 import { Loading, clickOutside } from "../helpers/modals";
+import { params } from "../store/params";
 
-const USER_API = "https://user-api.playingwithml.com";
-const API_DOMAIN = "https://api.playingwithml.com";
+const USER_API = `https://user-api.${params.domainName}`;
+const API_DOMAIN = `https://api.${params.domainName}`;
 
 const [models, setModels] = createSignal({ ready: false, models: [] });
 

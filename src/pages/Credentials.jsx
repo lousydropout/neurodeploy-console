@@ -4,8 +4,9 @@ import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
 import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
 import { A } from "@solidjs/router";
+import { params } from "../store/params";
 
-const USER_API = "https://user-api.playingwithml.com";
+const USER_API = `https://user-api.${params.domainName}`;
 
 const [creds, setCreds] = createSignal({ ready: false, creds: [] });
 
