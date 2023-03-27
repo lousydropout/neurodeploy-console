@@ -104,6 +104,7 @@ export default function () {
             <option value="" disabled selected>
               Select a (model_type, file_format) combination
             </option>
+            <option value="scikit-learn|joblib">(Scikit-learn, joblib)</option>
             <option value="scikit-learn|pickle">(Scikit-learn, pickle)</option>
             <option value="tensorflow|h5">(Tensorflow, h5)</option>
           </select>

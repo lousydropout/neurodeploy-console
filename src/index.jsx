@@ -1,24 +1,15 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
-import { lazy } from "solid-js";
 import { Router, A } from "@solidjs/router";
-import { location } from "./store/location";
 import { user, grabfromCache, logUserOut } from "./store/user";
 import { deleteModal } from "./store/deleteModal";
+import Login from "./pages/Login";
 import logoUrl from "../assets/logo.png";
 
 import "./index.css";
 import App from "./App";
 import Nav from "./components/Nav";
 const root = document.getElementById("root");
-
-const Login = lazy(() => import("./pages/Login"));
-
-if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
-  throw new Error(
-    "Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got mispelled?"
-  );
-}
 
 const Logo = () => (
   <div class="text-3xl">
