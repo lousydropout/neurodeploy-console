@@ -46,7 +46,7 @@ render(
           classList={{ "opacity-[85%]": deleteModal().visible }}
         >
           <Logo />
-          <h2>Welcome, {user().username}!</h2>
+          <h2 class="pr-4">Welcome, {user().username}!</h2>
         </header>
 
         {/* Center */}
