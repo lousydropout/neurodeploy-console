@@ -158,7 +158,7 @@ export default function () {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                stroke-width="0.4"
                 stroke="currentColor"
                 class="w-20 h-20"
               >
@@ -169,8 +169,8 @@ export default function () {
                 />
               </svg>
 
-              <p class="text-gray-300 text-lg font-semibold cursor-pointer text-center">
-                <span class="font-bold">Drag & drop</span>
+              <p class="text-gray-300 text-lg cursor-pointer text-center">
+                <span class="font-semibold">Drag & drop</span>
                 <br />
                 or
                 <br />
