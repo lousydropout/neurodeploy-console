@@ -22,8 +22,8 @@ export default function () {
       setError("Please provide a model name");
       return;
     }
-    if (!("model_type" in fields)) {
-      setError("Please select a (model_type, file_format) combo");
+    if (!("lib" in fields)) {
+      setError("Please select an (ML library, Filetype) combination");
       return;
     }
     if (!("file" in fields)) {
@@ -38,7 +38,7 @@ export default function () {
     // Get presigned PUT url
     try {
       const response = await fetch(
-        `${USER_API}/ml-models/${fields.model_name}?model_type=${fields.model_type}&persistence_type=${fields.persistence_type}`,
+        `${USER_API}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}`,
         requestOptions
       );
       const results = await response.json();
@@ -52,7 +52,8 @@ export default function () {
 
       const uploadOptions = { method: "POST", body: formdata };
 
-      await fetch(results.url, uploadOptions);
+      const res = await fetch(results.url, uploadOptions);
+      console.log("res: ", res);
 
       window.location.href = "/models";
     } catch (e) {
@@ -85,24 +86,23 @@ export default function () {
             onInput={updateField}
           />
 
-          {/* model type */}
-          <label for="model-type" class="flex justify-between text-gray-300 ">
-            Model type + file format:
+          {/* lib */}
+          <label for="lib" class="flex justify-between text-gray-300 ">
+            ML library + File type:
           </label>
           <select
-            class="mt-1 mb-4 w-full px-3 py-2 rounded cursor-pointer  text-black"
-            name="model-type"
-            id="model-type"
+            class="mt-1 mb-4 w-full px-3 py-2 rounded cursor-pointer text-black"
+            name="lib"
+            id="lib"
             required
             onChange={(e) => {
-              const [model_type, persistence_type] =
-                e.currentTarget.value.split("|");
-              setFields("model_type", model_type);
-              setFields("persistence_type", persistence_type);
+              const [lib, filetype] = e.currentTarget.value.split("|");
+              setFields("lib", lib);
+              setFields("filetype", filetype);
             }}
           >
             <option value="" disabled selected>
-              Select a (model_type, file_format) combination
+              Select an (ML library, Filetype) combination
             </option>
             <option value="scikit-learn|joblib">(Scikit-learn, joblib)</option>
             <option value="scikit-learn|pickle">(Scikit-learn, pickle)</option>
