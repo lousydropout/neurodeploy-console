@@ -23,15 +23,14 @@ const Logo = () => (
 // Log out user from all tabs if logged out from one
 setInterval(() => {
   const cached = grabfromCache();
+  if (!user().expires) return;
 
-  let now = new Date();
-  let expires_on = Date(user().expires);
+  const now = new Date();
+  const expires_on = new Date(user().expires);
 
   if (!cached && user().loggedIn) {
-    console.log("logging user out");
     logUserOut();
   } else if (expires_on <= now) {
-    console.log("User token expired");
     logUserOut();
   }
 }, 5000);
