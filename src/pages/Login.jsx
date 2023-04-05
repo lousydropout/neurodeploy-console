@@ -7,7 +7,7 @@ const Login = () => {
   grabfromCache();
 
   return (
-    <div class="h-full bg-zinc-800">
+    <div class="h-full bg-zinc-800 overflow-y-auto">
       <div class="flex justify-center mt-24">
         <Show when={showLogin()} fallback={Signup}>
           <Signin />

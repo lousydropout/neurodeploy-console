@@ -71,3 +71,14 @@ select {
 input[type="file"] {
   display: none;
 }
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(113 113 122 / var(--tw-bg-opacity));
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
