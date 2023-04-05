@@ -145,7 +145,8 @@ export default function () {
               onDragOver={(e) => e.preventDefault()}
               onChange={(e) => {
                 e.preventDefault();
-                const f = e.explicitOriginalTarget.files[0];
+                console.log("e: ", e);
+                const f = e.target.files[0];
                 handleClickOrDrop(f);
               }}
               onDrop={(e) => {
