@@ -54,11 +54,11 @@ export default function () {
 
   const CredsModal = (props) => (
     <div
+      class="modal"
       use:clickOutside={() => {
         setModal(modalNull);
         window.location.href = "/credentials";
       }}
-      class="modal text-zinc-300 py-12 px-12 w-1/2 min-w-fit h-fit bg-zinc-800 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
     >
       <div class="w-full px-8 py-6 bg-zinc-700 rounded">
         <h3 class="font-semibold">{props.creds.name}</h3>

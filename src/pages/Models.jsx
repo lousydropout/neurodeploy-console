@@ -60,10 +60,7 @@ const Models = () => {
   getModels(user().jwt);
 
   const DeleteModal = (props) => (
-    <div
-      use:clickOutside={() => setModal(modalNull)}
-      class="modal text-xl text-zinc-300 py-12 px-16 w-1/3 min-w-fit h-fit bg-zinc-800 bg-opacity-90 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
-    >
+    <div class="modal" use:clickOutside={() => setModal(modalNull)}>
       Are you sure you wanna delete model{" "}
       <span class="font-semibold">{props.name}</span>?
       <div class="flex justify-between w-full mt-12 space-x-4">
