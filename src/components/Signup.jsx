@@ -108,6 +108,7 @@ const SignupComponent = () => {
           id="username"
           type="username"
           placeholder="Username"
+          autocomplete="username"
           class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
           required
           onInput={updateField}
@@ -146,6 +147,7 @@ const SignupComponent = () => {
           name="password"
           id="password"
           placeholder="Password"
+          autocomplete="new-password"
           required
           minlength="8"
           class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
@@ -167,6 +169,7 @@ const SignupComponent = () => {
           name="confirmpassword"
           id="confirmpassword"
           placeholder="Confirm Password"
+          autocomplete="new-password"
           required
           class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
           onInput={updateField}

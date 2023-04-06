@@ -91,6 +91,7 @@ const SigninComponent = () => {
           id="username"
           type="username"
           placeholder="Username"
+          autocomplete="username"
           class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
           required
           onInput={updateField}
@@ -105,6 +106,7 @@ const SigninComponent = () => {
           name="password"
           id="password"
           placeholder="Password"
+          autocomplete="password"
           required
           class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
           onInput={updateField}
