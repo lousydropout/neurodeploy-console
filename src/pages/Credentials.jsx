@@ -2,7 +2,7 @@ import { onMount, createSignal, Show, Switch, Match } from "solid-js";
 import { location, setLocation } from "../store/location";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
-import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
+import { modal, modalNull, setModal } from "../store/modal";
 import { A } from "@solidjs/router";
 import { params } from "../store/params";
 
@@ -35,53 +35,51 @@ const Credentials = () => {
 
   setLocation("Credentials");
 
-  const deleteCreds = async () => {
+  const deleteCreds = async (name) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
 
     try {
-      const response = await fetch(
-        `${USER_API}/credentials/${deleteModal().name}`,
-        {
-          method: "DELETE",
-          headers: myHeaders,
-        }
-      );
+      const response = await fetch(`${USER_API}/credentials/${name}`, {
+        method: "DELETE",
+        headers: myHeaders,
+      });
       const results = await response.json();
       console.log("delete creds results: ", results);
     } catch (e) {
       console.error(e);
     }
-    setDeleteModal(modelNull);
+    setModal(modalNull);
     getCreds(user().jwt);
   };
+
+  const DeleteCredsModal = (props) => (
+    <div
+      use:clickOutside={() => setModal(modalNull)}
+      class="modal text-xl text-zinc-300 py-12 px-16 w-1/3 min-w-fit h-fit bg-zinc-800 bg-opacity-90 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
+    >
+      Are you sure you wanna delete credential{" "}
+      <span class="font-semibold">{props.name}</span>?
+      <div class="flex justify-between w-full mt-12 space-x-4">
+        <button
+          class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
+          onClick={() => setModal(modalNull)}
+        >
+          Cancel
+        </button>
+        <button
+          class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800 border border-red-800 rounded-md"
+          onClick={() => deleteCreds(props.name)}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Credentials</h2>
-      <Show when={deleteModal().visible === "delete"}>
-        <div
-          use:clickOutside={() => setDeleteModal(modelNull)}
-          class="text-xl text-zinc-300 fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
-        >
-          Are you sure you wanna delete credential{" "}
-          <span class="font-semibold">{deleteModal().name}</span>?
-          <div class="flex justify-between w-full mt-12">
-            <button
-              class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
-              onClick={() => setDeleteModal(modelNull)}
-            >
-              Cancel
-            </button>
-            <button
-              class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800 border border-red-800 rounded-md"
-              onClick={deleteCreds}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </Show>
 
       {/* create new creds */}
       <A
@@ -140,10 +138,14 @@ const Credentials = () => {
                   <button
                     name={credentials.credentials_name}
                     class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
-                    onClick={(e) => {
-                      setDeleteModal({
-                        visible: "delete",
-                        name: credentials.credentials_name,
+                    onClick={() => {
+                      setModal({
+                        visible: true,
+                        content: (
+                          <DeleteCredsModal
+                            name={credentials.credentials_name}
+                          />
+                        ),
                       });
                     }}
                   >

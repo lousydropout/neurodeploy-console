@@ -1,8 +1,8 @@
-import { createSignal, Show, Switch, Match } from "solid-js";
+import { createSignal, Switch, Match } from "solid-js";
 import { A } from "@solidjs/router";
 import { setLocation } from "../store/location";
 import { user } from "../store/user";
-import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
+import { setModal, modalNull } from "../store/modal";
 import { Loading, clickOutside } from "../helpers/modals";
 import { params } from "../store/params";
 
@@ -37,8 +37,7 @@ const formatDatetime = (x) => {
   return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
-const deleteModel = async () => {
-  const modelName = deleteModal().name;
+const deleteModel = async (modelName) => {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${user().jwt}`);
 
@@ -52,7 +51,7 @@ const deleteModel = async () => {
   } catch (e) {
     console.error(e);
   }
-  setDeleteModal(modelNull);
+  setModal(modalNull);
   getModels(user().jwt);
 };
 
@@ -60,33 +59,33 @@ const Models = () => {
   setLocation("Models");
   getModels(user().jwt);
 
+  const DeleteModal = (props) => (
+    <div
+      use:clickOutside={() => setModal(modalNull)}
+      class="modal text-xl text-zinc-300 py-12 px-16 w-1/3 min-w-fit h-fit bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
+    >
+      Are you sure you wanna delete model{" "}
+      <span class="font-semibold">{props.name}</span>?
+      <div class="flex justify-between w-full mt-12 space-x-4">
+        <button
+          class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
+          onClick={() => setModal(modalNull)}
+        >
+          Cancel
+        </button>
+        <button
+          class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
+          onClick={() => deleteModel(props.name)}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Models</h2>
-      <Show when={deleteModal().visible == "delete"}>
-        <div
-          use:clickOutside={() => setDeleteModal(modelNull)}
-          class="text-xl text-zinc-300 fixed py-12 px-16 w-1/3 h-fit ml-[13%] mt-[5%] bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
-        >
-          Are you sure you wanna delete model{" "}
-          <span class="font-semibold">{deleteModal().name}</span>?
-          <div class="flex justify-between w-full mt-12">
-            <button
-              class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
-              onClick={() => setDeleteModal(modelNull)}
-            >
-              Cancel
-            </button>
-            <button
-              class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
-              onClick={deleteModel}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </Show>
-
       <A
         class="flex justify-between w-fit space-x-2 px-4 py-3 mb-10 text-violet-400 border border-violet-400 hover:text-violet-300 hover:border-violet-300 rounded-md"
         href="/create_model"
@@ -146,9 +145,11 @@ const Models = () => {
                     name={model.model_name}
                     class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
                     onClick={(e) => {
-                      setDeleteModal({
-                        visible: "delete",
+                      setModal({
+                        visible: true,
                         name: model.model_name,
+                        state: ["delete"],
+                        content: <DeleteModal />,
                       });
                     }}
                   >

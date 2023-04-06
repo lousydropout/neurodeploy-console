@@ -1,7 +1,5 @@
-import { A } from "@solidjs/router";
 import { createSignal, createEffect, Show } from "solid-js";
 import { createStore } from "solid-js/store";
-import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
 import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
@@ -51,8 +49,11 @@ export default function () {
 
   const CredsModal = (props) => (
     <div
-      use:clickOutside={() => setModal(modalNull)}
-      class="modal text-zinc-300 fixed mt-4 py-12 px-12 w-1/2 min-w-fit h-fit bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
+      use:clickOutside={() => {
+        setModal(modalNull);
+        window.location.href = "/credentials";
+      }}
+      class="modal text-zinc-300 py-12 px-12 w-1/2 min-w-fit h-fit bg-zinc-800 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
     >
       <div class="w-full px-8 py-6 bg-zinc-700 rounded">
         <h3 class="font-semibold">{props.creds.name}</h3>
@@ -87,7 +88,7 @@ export default function () {
   );
 
   const CreatedCredsModal = (props) => (
-    <div class="h-full w-full bg-black z-10">
+    <div class="h-full w-full bg-zinc-200 z-10">
       <CredsModal {...props} />
     </div>
   );
@@ -95,10 +96,6 @@ export default function () {
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Create credentials</h2>
-      <Show when={modal()?.visible == "created"}>
-        <CreatedCredsModal creds={modal()} />
-      </Show>
-
       <div class="flex flex-col items-center">
         <form
           class="px-8 py-10 h-fit w-[40rem] max-w-full rounded-md bg-zinc-700"

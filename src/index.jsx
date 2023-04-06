@@ -39,6 +39,9 @@ createEffect(() => {
   if (modal().visible) {
     console.log("modal().visible");
     document.getElementById("root").style.opacity = 0.5;
+  } else {
+    console.log("not modal().visible");
+    document.getElementById("root").style.opacity = 1;
   }
 });
 
@@ -99,9 +102,7 @@ render(
 render(
   () => (
     <Show when={modal().visible}>
-      <div class="relative flex h-1/2 w-1/2 justify-center bg-black bg-opacity-30">
-        {modal().content}
-      </div>
+      <div class="flex justify-center">{modal().content}</div>
     </Show>
   ),
   document.getElementById("modal")
