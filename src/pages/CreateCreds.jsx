@@ -2,6 +2,7 @@ import { A } from "@solidjs/router";
 import { createSignal, createEffect, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { deleteModal, modelNull, setDeleteModal } from "../store/deleteModal";
+import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
 import { params } from "../store/params";
@@ -31,63 +32,71 @@ export default function () {
       const results = await response.json();
 
       // Show creds to user
-      setDeleteModal({
-        visible: "created",
+      const creds = {
         name: results.credential_name,
         accessKey: results.access_key,
         secretKey: results.secret_key,
         description: results.description,
         expiration: results.expiration,
+      };
+      setModal({
+        visible: true,
+        content: <CredsModal creds={creds} />,
+        states: ["created"],
       });
     } catch (e) {
       console.error(e);
     }
   };
 
-  const CreatedCredsModal = (props) => (
-    <div class="flex h-full w-full justify-center">
-      <div
-        use:clickOutside={() => setDeleteModal(modelNull)}
-        class="text-zinc-300 fixed mt-4 py-12 px-12 w-1/2 min-w-fit h-fit bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
-      >
-        <div class="w-full px-8 py-6 bg-zinc-700 rounded">
-          <h3 class="font-semibold">{props.creds.name}</h3>
-          <hr class="my-2 mb-4 border-gray-900" />
-          <span class="block text-gray-400 mr-1">access_key: </span>
-          <p class="pl-4 font-semibold">{props.creds.accessKey}</p>
-          <span class="block text-gray-400 mr-1">secret_key: </span>
-          <p class="pl-4 font-semibold">{props.creds.secretKey}</p>
-          <span class="block text-gray-400 mr-1">expires_on: </span>
-          <p class="pl-4 font-semibold">
-            {props.creds.expiration
-              ? formatDatetime(props.creds.expiration)
-              : "Never"}
-          </p>
-          <span class="block text-gray-400 mr-1">description: </span>
-          <p class="pl-4 font-semibold">{deleteModal().description}</p>
-        </div>
-        <p class="mt-8 text-red-300">
-          Note: It is not possible to see the secret key once you close this
-          modal. Please make sure you have it saved somewhere.{" "}
+  const CredsModal = (props) => (
+    <div
+      use:clickOutside={() => setModal(modalNull)}
+      class="modal text-zinc-300 fixed mt-4 py-12 px-12 w-1/2 min-w-fit h-fit bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
+    >
+      <div class="w-full px-8 py-6 bg-zinc-700 rounded">
+        <h3 class="font-semibold">{props.creds.name}</h3>
+        <hr class="my-2 mb-4 border-gray-900" />
+        <span class="block text-gray-400 mr-1">access_key: </span>
+        <p class="pl-4 font-semibold">{props.creds.accessKey}</p>
+        <span class="block text-gray-400 mr-1">secret_key: </span>
+        <p class="pl-4 font-semibold">{props.creds.secretKey}</p>
+        <span class="block text-gray-400 mr-1">expires_on: </span>
+        <p class="pl-4 font-semibold">
+          {props.creds.expiration
+            ? formatDatetime(props.creds.expiration)
+            : "Never"}
         </p>
-        <button
-          class="block mx-auto items-center text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
-          onClick={() => {
-            setDeleteModal(modelNull);
-            window.location.href = "/credentials";
-          }}
-        >
-          Done
-        </button>
+        <span class="block text-gray-400 mr-1">description: </span>
+        <p class="pl-4 font-semibold">{modal()?.description}</p>
       </div>
+      <p class="mt-8 text-red-300">
+        Note: It is not possible to see the secret key once you close this
+        modal. Please make sure you have it saved somewhere.{" "}
+      </p>
+      <button
+        class="block mx-auto items-center text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"
+        onClick={() => {
+          setModal(modalNull);
+          window.location.href = "/credentials";
+        }}
+      >
+        Done
+      </button>
+    </div>
+  );
+
+  const CreatedCredsModal = (props) => (
+    <div class="h-full w-full bg-black z-10">
+      <CredsModal {...props} />
     </div>
   );
 
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Create credentials</h2>
-      <Show when={deleteModal().visible == "created"}>
-        <CreatedCredsModal creds={deleteModal()} />
+      <Show when={modal()?.visible == "created"}>
+        <CreatedCredsModal creds={modal()} />
       </Show>
 
       <div class="flex flex-col items-center">
@@ -125,7 +134,7 @@ export default function () {
 
           {/* Submit button */}
           <div className="flex justify-center">
-            <Show when={deleteModal().visible !== "created"}>
+            <Show when={!("created" in modal().states)}>
               <button
                 type="submit"
                 class="text-lg text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded"

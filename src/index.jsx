@@ -2,14 +2,14 @@
 import { render } from "solid-js/web";
 import { Router, A } from "@solidjs/router";
 import { user, grabfromCache, logUserOut } from "./store/user";
-import { deleteModal } from "./store/deleteModal";
+import { modal } from "./store/modal";
 import Login from "./pages/Login";
 import logoUrl from "../assets/logo.png";
 
 import "./index.css";
 import App from "./App";
 import Nav from "./components/Nav";
-const root = document.getElementById("root");
+import { createEffect } from "solid-js";
 
 const Logo = () => (
   <div class="text-3xl">
@@ -35,6 +35,13 @@ setInterval(() => {
   }
 }, 5000);
 
+createEffect(() => {
+  if (modal().visible) {
+    console.log("modal().visible");
+    document.getElementById("root").style.opacity = 0.5;
+  }
+});
+
 render(
   () => (
     <Router>
@@ -42,7 +49,7 @@ render(
         {/* Header */}
         <header
           class="flex flex-row items-center justify-between h-20 p-4 bg-zinc-800 border-b-2 border-zinc-700"
-          classList={{ "opacity-[85%]": deleteModal().visible }}
+          classList={{ "opacity-[85%]": modal().visible }}
         >
           <Logo />
           <h2 class="pr-4">Welcome, {user().username}!</h2>
@@ -51,7 +58,7 @@ render(
         {/* Center */}
         <div
           className="flex h-full overflow-hidden bg-zinc-800"
-          classList={{ "opacity-[85%]": deleteModal().visible }}
+          classList={{ "opacity-[85%]": modal().visible }}
         >
           <div class="grid grid-cols-[15rem_1fr] w-full">
             {/* SideNav */}
@@ -70,7 +77,7 @@ render(
       {/* Footer */}
       <footer
         class="flex flex-row items-center justify-between h-12 p-4 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
-        classList={{ "opacity-[85%]": deleteModal().visible }}
+        classList={{ "opacity-[85%]": modal().visible }}
       >
         <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
@@ -85,5 +92,17 @@ render(
       </footer>
     </Router>
   ),
-  root
+  document.getElementById("root")
+);
+
+// Modal
+render(
+  () => (
+    <Show when={modal().visible}>
+      <div class="relative flex h-1/2 w-1/2 justify-center bg-black bg-opacity-30">
+        {modal().content}
+      </div>
+    </Show>
+  ),
+  document.getElementById("modal")
 );

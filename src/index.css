@@ -82,3 +82,7 @@ input[type="file"] {
   background-color: rgb(113 113 122 / var(--tw-bg-opacity));
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
+
+.modal {
+  @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10;
+}
