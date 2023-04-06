@@ -62,7 +62,7 @@ const Models = () => {
   const DeleteModal = (props) => (
     <div
       use:clickOutside={() => setModal(modalNull)}
-      class="modal text-xl text-zinc-300 py-12 px-16 w-1/3 min-w-fit h-fit bg-zinc-900 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
+      class="modal text-xl text-zinc-300 py-12 px-16 w-1/3 min-w-fit h-fit bg-zinc-800 bg-opacity-90 shadow-xl shadow-zinc-600 drop-shadow-xl border-zinc-600 rounded-md"
     >
       Are you sure you wanna delete model{" "}
       <span class="font-semibold">{props.name}</span>?
@@ -144,12 +144,10 @@ const Models = () => {
                   <button
                     name={model.model_name}
                     class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
-                    onClick={(e) => {
+                    onClick={() => {
                       setModal({
                         visible: true,
-                        name: model.model_name,
-                        state: ["delete"],
-                        content: <DeleteModal />,
+                        content: <DeleteModal name={model.model_name} />,
                       });
                     }}
                   >

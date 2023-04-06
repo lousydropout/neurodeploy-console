@@ -1,8 +1,8 @@
-import { createSignal, createEffect, Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
-import { Loading, clickOutside } from "../helpers/modals";
+import { clickOutside } from "../helpers/modals";
 import { params } from "../store/params";
 
 const USER_API = `https://user-api.${params.domainName}`;
@@ -28,6 +28,10 @@ export default function () {
     try {
       const response = await fetch(`${USER_API}/credentials`, requestOptions);
       const results = await response.json();
+      console.log("results: ", results);
+      if ("error_message" in results) {
+        throw Error(results.error_message);
+      }
 
       // Show creds to user
       const creds = {
@@ -44,6 +48,7 @@ export default function () {
       });
     } catch (e) {
       console.error(e);
+      setError(e.toString());
     }
   };
 
@@ -87,12 +92,6 @@ export default function () {
     </div>
   );
 
-  const CreatedCredsModal = (props) => (
-    <div class="h-full w-full bg-zinc-200 z-10">
-      <CredsModal {...props} />
-    </div>
-  );
-
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Create credentials</h2>
@@ -120,7 +119,7 @@ export default function () {
             Description:
           </label>
           <input
-            class="mt-1 mb-4 w-full px-3 py-2 rounded cursor-pointer  text-black"
+            class="mt-1 mb-4 w-full px-3 py-2 rounded cursor-pointer text-black"
             name="description"
             id="description"
             type="text"
