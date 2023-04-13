@@ -1,8 +1,8 @@
-import { onMount, createSignal, Show, Switch, Match } from "solid-js";
-import { location, setLocation } from "../store/location";
+import { onMount, createSignal, Switch, Match } from "solid-js";
+import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
-import { modal, modalNull, setModal } from "../store/modal";
+import { modalNull, setModal } from "../store/modal";
 import { A } from "@solidjs/router";
 import { params } from "../store/params";
 

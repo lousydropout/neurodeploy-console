@@ -1,9 +1,53 @@
 import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
+import { clickOutside } from "../helpers/modals";
+import { modalNull, setModal } from "../store/modal";
 import { params } from "../store/params";
 import { user } from "../store/user";
-
+import axios from "axios";
 const USER_API = `https://user-api.${params.domainName}`;
+
+const CreateModelModal = (props) => {
+  const { filename, uploadProgress } = props;
+  const uploaded = () => uploadProgress() === 100;
+  const gotoModelPage = () => {
+    setModal(modalNull);
+    window.location.href = "/models";
+  };
+  return (
+    <div class="modal flex-col space-y-8" use:clickOutside={gotoModelPage}>
+      <h1 class="text-2xl text-center mb-12">Uploading model</h1>
+      <div class="space-y-2 flex flex-col">
+        <div class="flex justify-between">
+          <span class="font-semibold">
+            {filename || "<filename-missing error>"}
+          </span>
+          <span class=" self-end">{uploadProgress()}%</span>
+        </div>
+        <div class="w-full bg-zinc-600">
+          <div
+            class={`h-6 bg-violet-600`}
+            style={{ width: `${uploadProgress()}%` }}
+          ></div>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button
+          class="justify-self-end mt-4 px-4 py-2 text-lg border min-w-fit w-[40%] rounded"
+          classList={{
+            "text-normal text-violet-400 border-violet-400 text-opacity-50 border-opacity-50 font-light":
+              !uploaded(),
+            "font-bold text-violet-500 border-violet-500 hover:text-violet-300 hover:border-violet-300":
+              uploaded(),
+          }}
+          onClick={gotoModelPage}
+        >
+          Done
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default function () {
   const [error, setError] = createSignal(null);
@@ -12,6 +56,10 @@ export default function () {
   const updateField = (e) => {
     const name = e.currentTarget.name;
     setFields([name], e.currentTarget.value);
+  };
+  const [uploadProgress, setUploadProgress] = createSignal(0);
+  const updateUploadProgress = (e) => {
+    setUploadProgress(Math.round((100 * e.loaded) / e.total));
   };
 
   const submit = async (e) => {
@@ -31,11 +79,21 @@ export default function () {
       return;
     }
 
+    // set modal
+    setModal({
+      visible: true,
+      content: (
+        <CreateModelModal
+          filename={fields.file.name}
+          uploadProgress={uploadProgress}
+        />
+      ),
+    });
+
+    // Get presigned PUT url
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
     const requestOptions = { method: "PUT", headers: myHeaders };
-
-    // Get presigned PUT url
     try {
       const response = await fetch(
         `${USER_API}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}`,
@@ -50,12 +108,10 @@ export default function () {
       });
       formdata.append("file", fields.file);
 
-      const uploadOptions = { method: "POST", body: formdata };
-
-      const res = await fetch(results.url, uploadOptions);
-      console.log("res: ", res);
-
-      window.location.href = "/models";
+      await axios.post(results.url, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: updateUploadProgress,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -145,7 +201,6 @@ export default function () {
               onDragOver={(e) => e.preventDefault()}
               onChange={(e) => {
                 e.preventDefault();
-                console.log("e: ", e);
                 const f = e.target.files[0];
                 handleClickOrDrop(f);
               }}
