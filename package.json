@@ -10,7 +10,13 @@
     "clear": "aws s3 rm --recursive s3://neurodeploy-console",
     "copy": "aws s3 cp --recursive ./dist s3://neurodeploy-console",
     "invalidate_cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E3RLKKLT4VNRTO",
-    "deploy": "pnpm run build; pnpm run clear;  pnpm run copy; pnpm run invalidate_cloudfront"
+    "deploy": "pnpm run build; pnpm run clear;  pnpm run copy; pnpm run invalidate_cloudfront",
+    "dev-replace-params-start": "mv src/store/params.jsx src/store/params.tmp; cp src/store/dev-params.jsx src/store/params.jsx",
+    "dev-clear": "aws s3 rm --recursive s3://playingwithml-console --profile dev",
+    "dev-copy": "aws s3 cp --recursive ./dist s3://playingwithml-console --profile dev",
+    "dev-invalidate_cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E1NB0ZVBAEVHCH --profile dev",
+    "dev-replace-params-end": "mv src/store/params.tmp src/store/params.jsx",
+    "dev-deploy": "pnpm run dev-replace-params-start; pnpm run build; pnpm run dev-clear;  pnpm run dev-copy; pnpm run dev-invalidate_cloudfront; pnpm run dev-replace-params-end"
   },
   "license": "MIT",
   "devDependencies": {
