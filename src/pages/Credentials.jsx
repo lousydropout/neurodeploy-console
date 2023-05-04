@@ -74,6 +74,23 @@ const Credentials = () => {
     </div>
   );
 
+  const DeleteThisCred = (props) => {
+    return (
+      <button
+        name={props.name}
+        class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
+        onClick={() => {
+          setModal({
+            visible: true,
+            content: <DeleteCredsModal name={props.name} />,
+          });
+        }}
+      >
+        delete
+      </button>
+    );
+  };
+
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Credentials</h2>
@@ -113,9 +130,14 @@ const Credentials = () => {
               {(credentials) => (
                 <li class="flex justify-between mt-4 mb-10 space-x-12">
                   <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
-                    <h3 class="text-xl font-semibold">
-                      {credentials.credentials_name}
-                    </h3>
+                    <div class="flex justify-between items-end">
+                      <h3 class="text-xl font-semibold">
+                        {credentials.credentials_name}
+                      </h3>
+                      <div>
+                        <DeleteThisCred name={credentials.credentials_name} />
+                      </div>
+                    </div>
                     <hr class="my-2 mb-4 border-gray-900" />
                     <p class="font-semibold">
                       <span class="text-gray-300 mr-1">access_key: </span>
@@ -132,22 +154,9 @@ const Credentials = () => {
                       {credentials.description}
                     </p>
                   </div>
-                  <button
-                    name={credentials.credentials_name}
-                    class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
-                    onClick={() => {
-                      setModal({
-                        visible: true,
-                        content: (
-                          <DeleteCredsModal
-                            name={credentials.credentials_name}
-                          />
-                        ),
-                      });
-                    }}
-                  >
-                    delete
-                  </button>
+                  {/* <div class="hidden md:block">
+                    <DeleteThisCred name={credentials.credentials_name} />
+                  </div> */}
                 </li>
               )}
             </For>

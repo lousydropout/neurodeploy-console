@@ -52,15 +52,11 @@ const CreateModelModal = (props) => {
 export default function () {
   const [error, setError] = createSignal(null);
   const [fields, setFields] = createStore(null);
+
   const updateField = (e) => {
     const name = e.currentTarget.name;
     setFields([name], e.currentTarget.value);
   };
-  const updateCheckbox = (e) => {
-    const name = e.currentTarget.name;
-    setFields([name], e.currentTarget.checked);
-  };
-
   const [uploadProgress, setUploadProgress] = createSignal(0);
   const updateUploadProgress = (e) => {
     setUploadProgress(Math.round((100 * e.loaded) / e.total));
@@ -100,11 +96,10 @@ export default function () {
     const requestOptions = { method: "PUT", headers: myHeaders };
     try {
       const response = await fetch(
-        `${USER_API}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}&is_public=${fields.is_public}`,
+        `${USER_API}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}`,
         requestOptions
       );
       const results = await response.json();
-      console.log("results: ", results);
 
       // Upload file
       const formdata = new FormData();
@@ -240,19 +235,6 @@ export default function () {
               <input id="model-file" class="w-fit p-4" type="file" />
             </label>
           </Show>
-
-          {/* Check if open to public */}
-          <div class="flex items-center mt-6 mb-2">
-            <input
-              id="is_public"
-              name="is_public"
-              type="checkbox"
-              onInput={updateCheckbox}
-            />
-            <label for="is_public" class="block ml-2 text-sm text-gray-300">
-              Allow public to execute model without API key
-            </label>
-          </div>
 
           {/* Submit button */}
           <div className="flex justify-center">

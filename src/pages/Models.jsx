@@ -80,6 +80,24 @@ const Models = () => {
     </div>
   );
 
+  const DeleteThisModel = (props) => {
+    const { name } = props;
+    return (
+      <button
+        name={name}
+        class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
+        onClick={() => {
+          setModal({
+            visible: true,
+            content: <DeleteModal name={name} />,
+          });
+        }}
+      >
+        delete
+      </button>
+    );
+  };
+
   return (
     <>
       <h2 class="mb-10 text-3xl underline">Models</h2>
@@ -112,44 +130,54 @@ const Models = () => {
 
         {/* Show list of models */}
         <Match when={models().ready && models().models.length > 0}>
-          <ul class="mx-auto max-w-[70rem] text-zinc-100">
+          <ul class="mx-auto min-w-[25rem] max-w-[70rem] text-zinc-100">
             <For each={models().models}>
               {(model) => (
-                <li class="flex justify-between mt-4 mb-10 space-x-12">
-                  <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
-                    <h3 class="text-xl font-semibold">{model.model_name}</h3>
+                <li class="flex justify-between mt-4 mb-10 space-x-4 sm:space-x-8 space-x-12">
+                  <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg overflow-x-auto">
+                    <div class="flex justify-between items-end">
+                      <h3 class="text-xl font-semibold">{model.model_name}</h3>
+                      <div>
+                        <DeleteThisModel name={model.model_name} />
+                      </div>
+                    </div>
                     <hr class="my-2 mb-4 border-gray-900" />
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">model type: </span>
-                      {model.model_type}
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        Requires API key:{" "}
+                      </span>
+                      {model.is_public ? "No" : "Yes"}
                     </p>
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">persistence type: </span>
-                      {model.persistence_type}
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        library:{" "}
+                      </span>
+                      {model.library}
                     </p>
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">uploaded at: </span>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        filetype:{" "}
+                      </span>
+                      {model.filetype}
+                    </p>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        uploaded at:{" "}
+                      </span>
                       {formatDatetime(model.uploaded_at)}
                     </p>
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">model endpoint: </span>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        model endpoint:{" "}
+                      </span>
                       <span class="text-gray-300 underline">
                         {`${API_DOMAIN}/${user().username}/${model.model_name}`}
                       </span>
                     </p>
                   </div>
-                  <button
-                    name={model.model_name}
-                    class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
-                    onClick={() => {
-                      setModal({
-                        visible: true,
-                        content: <DeleteModal name={model.model_name} />,
-                      });
-                    }}
-                  >
-                    delete
-                  </button>
+                  {/* <div class="hidden md:block">
+                    <DeleteThisModel name={model.model_name} />
+                  </div> */}
                   {/* </div> */}
                 </li>
               )}
