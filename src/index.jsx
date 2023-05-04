@@ -110,7 +110,7 @@ const NavExpanded = () => {
   return (
     <>
       <div
-        class="flex flex-col lg:hidden cursor-pointer"
+        class="flex flex-col lg:hidden cursor-pointer p-0"
         onClick={toggleShowMenu}
         use:clickOutside={() => setShowMenu(false)}
       >
@@ -166,13 +166,13 @@ render(
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
         <header
-          class="flex flex-row items-center justify-between h-20 p-4 bg-zinc-800 border-b-2 border-zinc-700"
+          class="flex flex-row items-center justify-between h-20 px-1 py-4 sm:p-4 bg-zinc-800 border-b-2 border-zinc-700"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <Logo />
           <h2 class="hidden md:inline pr-4">Welcome, {user().username}!</h2>
           {/* Collapsible nav menu */}
-          <nav class="flex pt-3 pr-6 w-full justify-end items-start md:hidden">
+          <nav class="flex pt-1 pr-1 sm:pt-4 md:pt-6 sm:pr-4 md:pr-6 w-full justify-end items-start md:hidden">
             <NavExpanded />
           </nav>
         </header>
@@ -199,7 +199,7 @@ render(
             </nav>
 
             {/* Main */}
-            <main className="w-full p-12 overflow-auto col-span-1">
+            <main className="w-full py-4 px-2 sm:p-4 md:p-12 overflow-auto col-span-1">
               <App />
             </main>
           </div>

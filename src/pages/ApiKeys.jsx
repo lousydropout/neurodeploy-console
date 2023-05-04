@@ -5,6 +5,7 @@ import { user } from "../store/user";
 import { setModal, modalNull } from "../store/modal";
 import { Loading, clickOutside } from "../helpers/modals";
 import { params } from "../store/params";
+import { formatDatetime } from "../helpers/formatTime";
 
 const USER_API = `https://user-api.${params.domainName}`;
 const API_DOMAIN = `https://api.${params.domainName}`;
@@ -30,11 +31,6 @@ const getApiKeys = async (token) => {
   } catch (err) {
     console.error("error", err);
   }
-};
-
-const formatDatetime = (x) => {
-  const y = new Date(x);
-  return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
 const deleteApiKey = async (hashed_key) => {

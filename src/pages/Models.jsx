@@ -5,6 +5,7 @@ import { user } from "../store/user";
 import { setModal, modalNull } from "../store/modal";
 import { Loading, clickOutside } from "../helpers/modals";
 import { params } from "../store/params";
+import { formatDatetime } from "../helpers/formatTime";
 
 const USER_API = `https://user-api.${params.domainName}`;
 const API_DOMAIN = `https://api.${params.domainName}`;
@@ -30,11 +31,6 @@ const getModels = async (token) => {
   } catch (err) {
     console.error("error", err);
   }
-};
-
-const formatDatetime = (x) => {
-  const y = new Date(x);
-  return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
 const deleteModel = async (modelName) => {
@@ -162,9 +158,9 @@ const Models = () => {
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        uploaded at:{" "}
+                        last updated at:{" "}
                       </span>
-                      {formatDatetime(model.uploaded_at)}
+                      {formatDatetime(model.updated_at)}
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
