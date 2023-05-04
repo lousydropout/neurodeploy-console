@@ -11,6 +11,12 @@ const top_navs = [
 
 const bottom_navs = [
   {
+    name: "API Keys",
+    route: "/api-keys",
+    icon: icons.apiKeys,
+    click: null,
+  },
+  {
     name: "Credentials",
     route: "/credentials",
     icon: icons.settings,

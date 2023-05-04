@@ -9,9 +9,9 @@ import { params } from "../store/params";
 const USER_API = `https://user-api.${params.domainName}`;
 const API_DOMAIN = `https://api.${params.domainName}`;
 
-const [models, setModels] = createSignal({ ready: false, models: [] });
+const [apiKeys, setApiKeys] = createSignal({ ready: false, apiKeys: [] });
 
-const getModels = async (token) => {
+const getApiKeys = async (token) => {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -22,11 +22,11 @@ const getModels = async (token) => {
   };
 
   try {
-    const response = await fetch(`${USER_API}/ml-models`, requestOptions);
+    const response = await fetch(`${USER_API}/api-keys`, requestOptions);
     const results = await response.json();
-    const x = results["models"];
+    const x = results["api-keys"];
     x.sort((a, b) => (a.uploaded_at < b.uploaded_at ? -1 : 1));
-    setModels({ ready: true, models: x.reverse() });
+    setApiKeys({ ready: true, apiKeys: x.reverse() });
   } catch (err) {
     console.error("error", err);
   }
@@ -37,32 +37,35 @@ const formatDatetime = (x) => {
   return `${y.toLocaleDateString()} ${y.toLocaleTimeString()}`;
 };
 
-const deleteModel = async (modelName) => {
+const deleteApiKey = async (hashed_key) => {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${user().jwt}`);
+  console.log("hashed_key: ", hashed_key);
+  console.log("url: ", `${USER_API}/api-keys/${hashed_key}`);
 
   try {
-    const response = await fetch(`${USER_API}/ml-models/${modelName}`, {
+    console.log("hashed_key: ", hashed_key);
+    const response = await fetch(`${USER_API}/api-keys/${hashed_key}`, {
       method: "DELETE",
       headers: myHeaders,
     });
     const results = await response.json();
-    console.log("delete model results: ", results);
+    console.log("delete api-key result: ", results);
   } catch (e) {
     console.error(e);
   }
   setModal(modalNull);
-  getModels(user().jwt);
+  getApiKeys(user().jwt);
 };
 
-const Models = () => {
-  setLocation("Models");
-  getModels(user().jwt);
+const ApiKeys = () => {
+  setLocation("ApiKeys");
+  getApiKeys(user().jwt);
 
   const DeleteModal = (props) => (
     <div class="modal" use:clickOutside={() => setModal(modalNull)}>
-      Are you sure you wanna delete model{" "}
-      <span class="font-semibold">{props.name}</span>?
+      Are you sure you wanna delete API key{" "}
+      <span class="font-semibold">{props.last8}</span>?
       <div class="flex justify-between w-full mt-12 space-x-4">
         <button
           class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
@@ -72,7 +75,7 @@ const Models = () => {
         </button>
         <button
           class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
-          onClick={() => deleteModel(props.name)}
+          onClick={() => deleteApiKey(props.key)}
         >
           Delete
         </button>
@@ -80,16 +83,16 @@ const Models = () => {
     </div>
   );
 
-  const DeleteThisModel = (props) => {
-    const { name } = props;
+  const DeleteThisApiKey = (props) => {
+    const { key, last8 } = props;
     return (
       <button
-        name={name}
+        name={last8}
         class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
         onClick={() => {
           setModal({
             visible: true,
-            content: <DeleteModal name={name} />,
+            content: <DeleteModal last8={last8} key={key} />,
           });
         }}
       >
@@ -100,10 +103,10 @@ const Models = () => {
 
   return (
     <>
-      <h2 class="mb-10 text-3xl underline">Models</h2>
+      <h2 class="mb-10 text-3xl underline">API Keys</h2>
       <A
         class="flex justify-between w-fit space-x-2 px-4 py-3 mb-10 text-violet-400 border border-violet-400 hover:text-violet-300 hover:border-violet-300 rounded-md"
-        href="/create_model"
+        href="/create_api_key"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -119,60 +122,60 @@ const Models = () => {
             d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
           />
         </svg>
-        <span>New model</span>
+        <span>New API Key</span>
       </A>
 
       <Switch fallback={<Loading />}>
-        {/* let user know if no models were found */}
-        <Match when={models().ready && models().models.length === 0}>
-          <div>No models found</div>
+        {/* let user know if no apiKeys were found */}
+        <Match when={apiKeys().ready && apiKeys().apiKeys.length === 0}>
+          <div>No API keys found</div>
         </Match>
 
-        {/* Show list of models */}
-        <Match when={models().ready && models().models.length > 0}>
+        {/* Show list of API keys */}
+        <Match when={apiKeys().ready && apiKeys().apiKeys.length > 0}>
           <ul class="mx-auto min-w-[25rem] max-w-[70rem] text-zinc-100">
-            <For each={models().models}>
-              {(model) => (
+            <For each={apiKeys().apiKeys}>
+              {(key) => (
                 <li class="flex justify-between mt-4 mb-10 space-x-4 sm:space-x-8 lg:space-x-12">
                   <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg overflow-x-auto">
                     <div class="flex justify-between items-end">
-                      <h3 class="text-xl font-semibold">{model.model_name}</h3>
+                      <h3 class="text-xl">
+                        <span class=" font-semibold">Last 8 digits:</span>{" "}
+                        {key.last8}
+                      </h3>
                       <div>
-                        <DeleteThisModel name={model.model_name} />
+                        <DeleteThisApiKey
+                          key={key.hashed_key}
+                          last8={key.last8}
+                        />
                       </div>
                     </div>
                     <hr class="my-2 mb-4 border-gray-900" />
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        Requires API key:{" "}
+                        Applies to model:{" "}
                       </span>
-                      {model.is_public ? "No" : "Yes"}
+                      {key.model_name == "*" ? "ALL models" : key.model_name}
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        library:{" "}
+                        description:{" "}
                       </span>
-                      {model.library}
+                      {key.description}
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        filetype:{" "}
+                        created at:{" "}
                       </span>
-                      {model.filetype}
+                      {formatDatetime(key.created_at)}
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        uploaded at:{" "}
+                        expires at:{" "}
                       </span>
-                      {formatDatetime(model.uploaded_at)}
-                    </p>
-                    <p class="font-light">
-                      <span class="text-gray-300 mr-1 font-bold">
-                        model endpoint:{" "}
-                      </span>
-                      <span class="text-gray-300 underline">
-                        {`${API_DOMAIN}/${user().username}/${model.model_name}`}
-                      </span>
+                      {key.expires_at
+                        ? formatDatetime(key.expires_at)
+                        : "NEVER"}
                     </p>
                   </div>
                   {/* <div class="hidden md:block">
@@ -189,4 +192,4 @@ const Models = () => {
   );
 };
 
-export default Models;
+export default ApiKeys;

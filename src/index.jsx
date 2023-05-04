@@ -25,6 +25,13 @@ const navItems = [
     click: null,
   },
   {
+    name: "API Keys",
+    icon: icons.apiKeys,
+    link: "/api-keys",
+    show: true,
+    click: null,
+  },
+  {
     name: "Credentials",
     icon: icons.settings,
     link: "/credentials",

@@ -191,13 +191,23 @@ const SignupComponent = () => {
             class="block ml-2 text-sm text-gray-300"
           >
             I agree to the
-            <A class="mx-1 font-semibold underline text-violet-400" href="#">
+            <a
+              class="ml-1 font-semibold underline text-violet-400"
+              href={`https://${params.domainName}/terms`}
+              target="_blank"
+              ref="nofollow"
+            >
               terms
-            </A>
+            </a>
             and
-            <A class="ml-1 font-semibold underline text-violet-400" href="#">
+            <a
+              class="ml-1 font-semibold underline text-violet-400"
+              href={`https://${params.domainName}/privacy`}
+              target="_blank"
+              ref="nofollow"
+            >
               privacy policy
-            </A>
+            </a>
             .
           </label>
         </div>
