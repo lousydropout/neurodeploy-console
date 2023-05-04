@@ -126,11 +126,11 @@ const Credentials = () => {
 
         {/* Show list of models */}
         <Match when={creds().ready && creds().creds.length > 0}>
-          <ul class="mx-auto max-w-[70rem] text-zinc-100">
+          <ul class="min-w-[25rem] max-w-[70rem] text-zinc-100">
             <For each={creds().creds}>
               {(credentials) => (
-                <li class="flex justify-between mt-4 mb-10 space-x-12">
-                  <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg">
+                <li class="flex justify-between p-0 mx-0 mt-4 mb-10 space-x-12">
+                  <div class="w-full px-4 py-6 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg">
                     <div class="flex justify-between items-end">
                       <h3 class="text-xl font-semibold">
                         {credentials.credentials_name}
@@ -141,11 +141,11 @@ const Credentials = () => {
                     </div>
                     <hr class="my-2 mb-4 border-gray-900" />
                     <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">access_key: </span>
+                      <span class="text-gray-300 mr-1">access key: </span>
                       {credentials.access_key}
                     </p>
                     <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">expires_on: </span>
+                      <span class="text-gray-300 mr-1">expires on: </span>
                       {credentials.expiration
                         ? formatDatetime(credentials.expiration)
                         : "Never"}

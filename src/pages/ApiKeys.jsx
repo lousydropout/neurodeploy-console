@@ -129,11 +129,11 @@ const ApiKeys = () => {
 
         {/* Show list of API keys */}
         <Match when={apiKeys().ready && apiKeys().apiKeys.length > 0}>
-          <ul class="mx-auto min-w-[25rem] max-w-[70rem] text-zinc-100">
+          <ul class="min-w-[25rem] max-w-[70rem] text-zinc-100">
             <For each={apiKeys().apiKeys}>
               {(key) => (
-                <li class="flex justify-between mt-4 mb-10 space-x-4 sm:space-x-8 lg:space-x-12">
-                  <div class="w-full px-10 py-8 bg-zinc-700 rounded-lg overflow-x-auto">
+                <li class="flex justify-between p-0 mx-0 mt-4 mb-10 space-x-4 sm:space-x-8 lg:space-x-12">
+                  <div class="w-full px-4 py-6 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
                     <div class="flex justify-between items-end">
                       <h3 class="text-xl">
                         <span class=" font-semibold">Last 8 digits:</span>{" "}
@@ -149,7 +149,7 @@ const ApiKeys = () => {
                     <hr class="my-2 mb-4 border-gray-900" />
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        Applies to model:{" "}
+                        applies to model:{" "}
                       </span>
                       {key.model_name == "*" ? "ALL models" : key.model_name}
                     </p>
@@ -167,7 +167,7 @@ const ApiKeys = () => {
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        expires at:{" "}
+                        expires on:{" "}
                       </span>
                       {key.expires_at
                         ? formatDatetime(key.expires_at)

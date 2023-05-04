@@ -49,8 +49,8 @@ const navItems = [
 
 const Logo = () => (
   <div class="text-3xl">
-    <A href="/" class="flex items-center space-x-3">
-      <img src={logoUrl} alt="Neurodeploy logo" class="w-12 ml-2 " />
+    <A href="/" class="flex justify-between items-center space-x-3">
+      <img src={logoUrl} alt="Neurodeploy logo" class="w-12 ml-0 md:ml-2" />
       <span>Neurodeploy</span>
     </A>
   </div>
@@ -83,11 +83,11 @@ createEffect(() => {
 
 const NavItems = () => (
   <div class="">
-    <ul class="flex flex-col items-end lg:hidden lg:display-none min-h-fit">
+    <ul class="flex flex-col items-end md:hidden md:display-none min-h-fit">
       <For each={navItems}>
         {(item) => (
           <A
-            class="hover:underline transition-transform hover:bg-zinc-700 w-full p-4 text-right"
+            class="hover:underline transition-transform hover:bg-zinc-700 w-full px-5 py-4 text-right"
             classList={{
               "bg-zinc-700 font-semibold bg-opacity-80":
                 location() == item.name,
@@ -98,7 +98,7 @@ const NavItems = () => (
               // item.click === null ? setShowMenu(false) : item.click();
             }}
           >
-            <span class="px-8">{item.name}</span>
+            <span class="">{item.name}</span>
           </A>
         )}
       </For>
@@ -172,7 +172,7 @@ render(
           <Logo />
           <h2 class="hidden md:inline pr-4">Welcome, {user().username}!</h2>
           {/* Collapsible nav menu */}
-          <nav class="flex pt-1 pr-1 sm:pt-4 md:pt-6 sm:pr-4 md:pr-6 w-full justify-end items-start md:hidden">
+          <nav class="flex pt-1 pr-0 md:pr-6 w-full justify-end items-center md:hidden">
             <NavExpanded />
           </nav>
         </header>
@@ -186,7 +186,7 @@ render(
 
         {/* Center */}
         <div
-          className="flex h-full overflow-hidden bg-zinc-800"
+          className="flex h-full overflow-x-auto bg-zinc-800"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <div
@@ -199,7 +199,7 @@ render(
             </nav>
 
             {/* Main */}
-            <main className="w-full py-4 px-2 sm:p-4 md:p-12 overflow-auto col-span-1">
+            <main className="w-full py-4 px-2 sm:p-4 md:p-12 col-span-1">
               <App />
             </main>
           </div>
@@ -208,12 +208,12 @@ render(
 
       {/* Footer */}
       <footer
-        class="flex flex-row items-center justify-between h-12 p-4 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
+        class="flex flex-row items-center justify-between h-12 py-4 px-2 sm:px-4 md:px-6 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
         classList={{ "opacity-[85%]": modal().visible }}
       >
-        <div class="mx-4">Copyright &copy; 2023 Neurodeploy</div>
+        <div class="md:mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
-        <div class="flex items-center mx-4 space-x-2 ">
+        <div class="flex items-center md:mx-4 space-x-2 ">
           <A class="underline" href="/terms">
             terms
           </A>
