@@ -5,6 +5,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Model = lazy(() => import("./pages/models/[model_name]"));
 const Models = lazy(() => import("./pages/Models"));
 const ApiKeys = lazy(() => import("./pages/ApiKeys"));
+const CreateApiKey = lazy(() => import("./pages/CreateApiKey"));
 const CreateModel = lazy(() => import("./pages/CreateModel"));
 const CreateCreds = lazy(() => import("./pages/CreateCreds"));
 const Credentials = lazy(() => import("./pages/Credentials"));
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" component={Home}></Route>
       <Route path="/models" component={Models}></Route>
       <Route path="/api-keys" component={ApiKeys}></Route>
+      <Route path="/create_api_key" component={CreateApiKey}></Route>
       <Route path="/create_model" component={CreateModel}></Route>
       <Route path="/models/:model_name" component={Model}></Route>
       <Route path="/credentials" component={Credentials}></Route>
