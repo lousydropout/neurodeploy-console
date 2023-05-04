@@ -140,7 +140,7 @@ const Models = () => {
                     <hr class="my-2 mb-4 border-gray-900" />
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        Requires API key:{" "}
+                        requires API key:{" "}
                       </span>
                       {model.is_public ? "No" : "Yes"}
                     </p>
@@ -152,7 +152,7 @@ const Models = () => {
                     </p>
                     <p class="font-light">
                       <span class="text-gray-300 mr-1 font-bold">
-                        filetype:{" "}
+                        file type:{" "}
                       </span>
                       {model.filetype}
                     </p>
