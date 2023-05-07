@@ -96,7 +96,7 @@ const SigninComponent = () => {
           type="username"
           placeholder="Username"
           autocomplete="username"
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
           required
           onInput={updateField}
         />
@@ -112,7 +112,7 @@ const SigninComponent = () => {
           placeholder="Password"
           autocomplete="password"
           required
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded"
           onInput={updateField}
         />
 
@@ -120,7 +120,7 @@ const SigninComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            class="text-lg font-bold text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-10 rounded hover:text-violet-300 hover:border-violet-300"
+            class="text-lg font-bold text-violet-500 border-violet-500 border shadow-sm drop-shadow-lg w-[70%] py-2 mt-6 rounded hover:text-violet-300 hover:border-violet-300"
           >
             Log in
           </button>

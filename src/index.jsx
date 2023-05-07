@@ -195,7 +195,7 @@ render(
             classList={{ hidden: showMenu() }}
           >
             {/* SideNav */}
-            <nav class="hidden md:flex flex-col justify-between p-6 bg-zinc-800 border-none md:border-r-2 border-zinc-700 col-span-1 ">
+            <nav class="hidden md:flex flex-col justify-between p-6 bg-zinc-800 border-r-2 border-zinc-700 col-span-1 ">
               <Nav />
             </nav>
 
