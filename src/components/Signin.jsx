@@ -61,7 +61,11 @@ const SigninComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img src={logoUrl} alt="Neurodeploy logo" class="mb-6 ml-2 w-14" />
+        <img
+          src={logoUrl}
+          alt="Neurodeploy logo"
+          class="my-2 sm:mb-6 w-12 sm:w-14"
+        />
         <h1 class="text-3xl text-gray-200">Log in</h1>
         <p class="mt-2 text-sm text-center max-w">
           Don't have an account?
@@ -74,12 +78,12 @@ const SigninComponent = () => {
           </A>
           .
         </p>
-        <hr class="my-4 border-zinc-400" />
+        <hr class="my-2 sm:my-4 border-zinc-400" />
       </header>
 
       {/* form */}
       <form
-        class="px-4 py-8 sm:px-8 sm:py-10 h-fit sm:w-96 rounded-md bg-zinc-700"
+        class="py-4 px-6 sm:px-8 sm:py-10 h-fit sm:w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}

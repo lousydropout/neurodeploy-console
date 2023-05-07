@@ -75,7 +75,11 @@ const SignupComponent = () => {
     <div class="flex flex-col">
       {/* header */}
       <header class="flex flex-col items-center">
-        <img src={logoUrl} alt="Neurodeploy logo" class="mb-6 ml-2 w-14" />
+        <img
+          src={logoUrl}
+          alt="Neurodeploy logo"
+          class="my-2 sm:mb-6 w-12 sm:w-14"
+        />
         <h1 class="text-3xl text-gray-200">Create your account</h1>
         <p class="mt-2 text-sm text-center max-w">
           Already registered?
@@ -88,12 +92,12 @@ const SignupComponent = () => {
           </A>
         </p>
 
-        <hr class="my-4 border-zinc-400" />
+        <hr class="my-2 sm:my-4 border-zinc-400" />
       </header>
 
       {/* form */}
       <form
-        class="px-4 py-8 sm:px-8 sm:py-10 h-fit sm:w-96 rounded-md bg-zinc-700"
+        class="py-4 px-6 sm:px-8 sm:py-10 h-fit sm:w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}
@@ -109,7 +113,7 @@ const SignupComponent = () => {
           type="username"
           placeholder="Username"
           autocomplete="username"
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded ring-indigo-900"
           required
           onInput={updateField}
           onBlur={updateField}
@@ -127,7 +131,7 @@ const SignupComponent = () => {
           id="email"
           type="email"
           placeholder="Email"
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded"
           required
           onBlur={updateField}
           onInput={(e) => {
@@ -150,7 +154,7 @@ const SignupComponent = () => {
           autocomplete="new-password"
           required
           minlength="8"
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded"
           onInput={(e) => {
             (errors().password || errors().confirmpassword) && updateField(e);
           }}
@@ -171,14 +175,14 @@ const SignupComponent = () => {
           placeholder="Confirm Password"
           autocomplete="new-password"
           required
-          class="w-full p-2 mt-1 mb-4 text-black bg-zinc-300 rounded"
+          class="w-full p-2 mt-1 mb-2 sm:mb-4 text-black bg-zinc-300 rounded"
           onInput={updateField}
           onBlur={updateField}
           onKeyUp={updateField}
         />
 
         {/* Terms and Conditions */}
-        <div class="flex items-center mt-6 mb-2">
+        <div class="flex items-center mt-4 sm:mt-6 mb-2">
           <input
             id="terms-and-privacy"
             name="terms_and_privacy"
