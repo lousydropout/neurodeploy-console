@@ -81,7 +81,7 @@ const Models = () => {
     return (
       <button
         name={name}
-        class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
+        class="block px-2 py-1 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
         onClick={() => {
           setModal({
             visible: true,
@@ -126,11 +126,11 @@ const Models = () => {
 
         {/* Show list of models */}
         <Match when={models().ready && models().models.length > 0}>
-          <ul class="min-w-[25rem] max-w-[70rem] text-zinc-100">
+          <ul class="md:max-w-[70rem] text-zinc-100">
             <For each={models().models}>
               {(model) => (
                 <li class="flex justify-between p-0 mx-0 mt-4 mb-10 space-x-4 sm:space-x-8 lg:space-x-12">
-                  <div class="w-full px-4 py-6 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
+                  <div class="w-full p-4 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
                     <div class="flex justify-between items-end">
                       <h3 class="text-xl font-semibold">{model.model_name}</h3>
                       <div>

@@ -84,7 +84,7 @@ const ApiKeys = () => {
     return (
       <button
         name={last8}
-        class="block px-6 py-2 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
+        class="block px-2 py-1 text-center text-red-400 border border-red-400 rounded hover:text-red-300 hover:border-red-300"
         onClick={() => {
           setModal({
             visible: true,
@@ -98,7 +98,7 @@ const ApiKeys = () => {
   };
 
   return (
-    <>
+    <div class="h-full">
       <h2 class="mb-10 text-3xl underline">API Keys</h2>
       <A
         class="flex justify-between w-fit space-x-2 px-4 py-3 mb-10 text-violet-400 border border-violet-400 hover:text-violet-300 hover:border-violet-300 rounded-md"
@@ -129,11 +129,11 @@ const ApiKeys = () => {
 
         {/* Show list of API keys */}
         <Match when={apiKeys().ready && apiKeys().apiKeys.length > 0}>
-          <ul class="min-w-[25rem] max-w-[70rem] text-zinc-100">
+          <ul class="md:min-w-[25rem] max-w-[70rem] text-zinc-100">
             <For each={apiKeys().apiKeys}>
               {(key) => (
                 <li class="flex justify-between p-0 mx-0 mt-4 mb-10 space-x-4 sm:space-x-8 lg:space-x-12">
-                  <div class="w-full px-4 py-6 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
+                  <div class="w-full p-4 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
                     <div class="flex justify-between items-end">
                       <h3 class="text-xl">
                         <span class=" font-semibold">Last 8 digits:</span>{" "}
@@ -184,7 +184,7 @@ const ApiKeys = () => {
           </ul>
         </Match>
       </Switch>
-    </>
+    </div>
   );
 };
 

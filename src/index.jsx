@@ -83,7 +83,7 @@ createEffect(() => {
 
 const NavItems = () => (
   <div class="">
-    <ul class="flex flex-col items-end md:hidden md:display-none min-h-fit">
+    <ul class="flex flex-col items-end md:hidden md:display-none">
       <For each={navItems}>
         {(item) => (
           <A
@@ -166,7 +166,7 @@ render(
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
         <header
-          class="flex flex-row items-center justify-between h-20 px-1 py-4 sm:p-4 bg-zinc-800 border-b-2 border-zinc-700"
+          class="flex flex-row items-center justify-between h-20 p-4 bg-zinc-800 border-b-2 border-zinc-700"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <Logo />
@@ -186,20 +186,20 @@ render(
 
         {/* Center */}
         <div
-          className="flex h-full overflow-x-auto bg-zinc-800"
+          className="flex h-full bg-zinc-800 overflow-y-auto md:overflow-y-hidden"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <div
-            class="grid grid-cols-1 md:grid-cols-[15rem_1fr] w-full"
+            class="md:grid md:grid-cols-[15rem_1fr] w-full"
             classList={{ hidden: showMenu() }}
           >
             {/* SideNav */}
-            <nav class="hidden md:flex flex-col justify-between h-full p-6 bg-zinc-800 border-r-2 border-zinc-700 col-span-1 ">
+            <nav class="hidden md:flex flex-col justify-between p-6 bg-zinc-800 border-none md:border-r-2 border-zinc-700 col-span-1 ">
               <Nav />
             </nav>
 
             {/* Main */}
-            <main className="w-full py-4 px-2 sm:p-4 md:p-12 col-span-1">
+            <main className="w-full p-4 md:p-12 col-span-1 overflow-y-auto">
               <App />
             </main>
           </div>
@@ -208,7 +208,7 @@ render(
 
       {/* Footer */}
       <footer
-        class="flex flex-row items-center justify-between h-12 py-4 px-2 sm:px-4 md:px-6 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
+        class="flex flex-row items-center justify-between h-12 p-4 md:px-6 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
         classList={{ "opacity-[85%]": modal().visible }}
       >
         <div class="md:mx-4">Copyright &copy; 2023 Neurodeploy</div>
