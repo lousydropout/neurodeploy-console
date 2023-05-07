@@ -93,7 +93,7 @@ const SignupComponent = () => {
 
       {/* form */}
       <form
-        class="px-8 py-10 h-fit w-96 rounded-md bg-zinc-700"
+        class="px-4 py-8 sm:px-8 sm:py-10 h-fit sm:w-96 rounded-md bg-zinc-700"
         onSubmit={submit}
       >
         {/* username */}
@@ -198,7 +198,7 @@ const SignupComponent = () => {
               ref="nofollow"
             >
               terms
-            </a>
+            </a>{" "}
             and
             <a
               class="ml-1 font-semibold underline text-violet-400"

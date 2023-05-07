@@ -8,7 +8,7 @@ const Login = () => {
 
   return (
     <div class="h-full bg-zinc-800 overflow-y-auto">
-      <div class="flex justify-center mt-24">
+      <div class="flex justify-center mt-8 md:mt-24">
         <Show when={showLogin()} fallback={Signup}>
           <Signin />
         </Show>

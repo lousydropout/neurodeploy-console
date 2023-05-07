@@ -6,6 +6,7 @@ import { clickOutside } from "./helpers/modals";
 import { user, grabfromCache, logUserOut } from "./store/user";
 import { location } from "./store/location";
 import { modal } from "./store/modal";
+import { params } from "./store/params";
 import Login from "./pages/Login";
 import logoUrl from "../assets/logo.png";
 
@@ -69,7 +70,7 @@ setInterval(() => {
   } else if (expires_on <= now) {
     logUserOut();
   }
-}, 5000);
+}, 3000);
 
 createEffect(() => {
   if (modal().visible) {
@@ -214,12 +215,21 @@ render(
         <div class="md:mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
         <div class="flex items-center md:mx-4 space-x-2 ">
-          <A class="underline" href="/terms">
+          <a class="underline" href={`https://${params.domainName}/terms`}>
             terms
-          </A>
-          <A class="underline" href="/privacy">
+          </a>
+          <a
+            class="sm:hidden underline"
+            href={`https://${params.domainName}/privacy`}
+          >
+            privacy
+          </a>
+          <a
+            class="hidden sm:inline underline"
+            href={`https://${params.domainName}/privacy`}
+          >
             privacy policy
-          </A>
+          </a>
         </div>
       </footer>
     </Router>
