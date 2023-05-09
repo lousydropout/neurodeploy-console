@@ -214,6 +214,26 @@ export default function () {
                 const f = e.dataTransfer.files[0];
                 handleClickOrDrop(f);
               }}
+              onKeyDown={(e) => {
+                e.preventDefault();
+                if (e.code === "Space" || e.code === "Enter") {
+                  // if they hit space or enter
+                  const x = e.target.querySelector("input#model-file");
+                  x.click();
+                } else if (e.code === "Tab" && e.shiftKey) {
+                  // if they hit shift-tab
+                  const x = document.getElementById("lib");
+                  x.focus();
+                } else if (e.code === "Tab" && !e.shiftKey) {
+                  // if they hit tab
+                  const x = document.getElementById("is_public");
+                  x.focus();
+                } else if (e.code === "KeyR") {
+                  // if they hit ctrl-r
+                  window.location.reload();
+                }
+              }}
+              tabIndex="0"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

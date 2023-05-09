@@ -171,10 +171,6 @@ const Models = () => {
                       </span>
                     </p>
                   </div>
-                  {/* <div class="hidden md:block">
-                    <DeleteThisModel name={model.model_name} />
-                  </div> */}
-                  {/* </div> */}
                 </li>
               )}
             </For>
