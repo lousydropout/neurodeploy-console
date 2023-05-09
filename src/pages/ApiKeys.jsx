@@ -9,6 +9,7 @@ import { formatDatetime } from "../helpers/formatTime";
 
 const USER_API = `https://user-api.${params.domainName}`;
 const API_DOMAIN = `https://api.${params.domainName}`;
+const KEY_PREFIX = "xxxxxxxx-xxxx-xxxx-xxxx-xxxx";
 
 const [apiKeys, setApiKeys] = createSignal({ ready: false, apiKeys: [] });
 
@@ -55,13 +56,13 @@ const deleteApiKey = async (hashed_key) => {
 };
 
 const ApiKeys = () => {
-  setLocation("ApiKeys");
+  setLocation("API Keys");
   getApiKeys(user().jwt);
 
   const DeleteModal = (props) => (
     <div class="modal" use:clickOutside={() => setModal(modalNull)}>
       Are you sure you wanna delete API key{" "}
-      <span class="font-semibold">{props.last8}</span>?
+      <span class="font-semibold">{`${KEY_PREFIX}${props.last8}`}</span>?
       <div class="flex justify-between w-full mt-12 space-x-4">
         <button
           class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
@@ -136,8 +137,9 @@ const ApiKeys = () => {
                   <div class="w-full p-4 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg overflow-x-auto">
                     <div class="flex justify-between items-end">
                       <h3 class="text-xl">
-                        <span class=" font-semibold">Last 8 digits:</span>{" "}
-                        {key.last8}
+                        <span class="font-semibold">
+                          {`${KEY_PREFIX}${key.last8}`}
+                        </span>
                       </h3>
                       <div>
                         <DeleteThisApiKey

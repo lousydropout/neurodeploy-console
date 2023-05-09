@@ -132,26 +132,34 @@ const Credentials = () => {
                 <li class="flex justify-between p-0 mx-0 mt-4 mb-10 space-x-12">
                   <div class="w-full p-4 sm:px-10 sm:py-8 bg-zinc-700 rounded-lg">
                     <div class="flex justify-between items-end">
-                      <h3 class="text-xl font-semibold">
-                        {credentials.credentials_name}
+                      <h3 class="text-xl">
+                        <span class="font-semibold">
+                          {credentials.credentials_name}
+                        </span>
                       </h3>
                       <div>
                         <DeleteThisCred name={credentials.credentials_name} />
                       </div>
                     </div>
                     <hr class="my-2 mb-4 border-gray-900" />
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">access key: </span>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        access key:{" "}
+                      </span>
                       {credentials.access_key}
                     </p>
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">expires on: </span>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        expires on:{" "}
+                      </span>
                       {credentials.expiration
                         ? formatDatetime(credentials.expiration)
                         : "Never"}
                     </p>
-                    <p class="font-semibold">
-                      <span class="text-gray-300 mr-1">description: </span>
+                    <p class="font-light">
+                      <span class="text-gray-300 mr-1 font-bold">
+                        description:{" "}
+                      </span>
                       {credentials.description}
                     </p>
                   </div>

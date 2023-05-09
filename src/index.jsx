@@ -49,9 +49,13 @@ const navItems = [
 ];
 
 const Logo = () => (
-  <div class="text-3xl">
+  <div class="text-2xl sm:text-3xl">
     <A href="/" class="flex justify-between items-center space-x-3">
-      <img src={logoUrl} alt="Neurodeploy logo" class="w-12 ml-0 md:ml-2" />
+      <img
+        src={logoUrl}
+        alt="Neurodeploy logo"
+        class="w-8 sm:w-12 ml-0 md:ml-2"
+      />
       <span>Neurodeploy</span>
     </A>
   </div>
@@ -96,7 +100,6 @@ const NavItems = () => (
             href={item.link}
             onClick={(e) => {
               item.click ? item.click(e) : setShowMenu(false);
-              // item.click === null ? setShowMenu(false) : item.click();
             }}
           >
             <span class="">{item.name}</span>
@@ -121,7 +124,7 @@ const NavExpanded = () => {
           viewBox="0 0 24 24"
           stroke-width="1.2"
           stroke="currentColor"
-          class="w-10 h-10"
+          class="w-8 h-8 sm:w-10 sm:h-10"
         >
           <path
             stroke-linecap="round"
