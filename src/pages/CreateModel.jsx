@@ -75,7 +75,7 @@ export default function () {
       return;
     }
     if (!("lib" in fields)) {
-      setError("Please select an (ML library, Filetype) combination");
+      setError("Please select an (ML library, File type) combination");
       return;
     }
     if (!("file" in fields)) {
@@ -163,7 +163,7 @@ export default function () {
             }}
           >
             <option value="" disabled selected>
-              Select an (ML library, Filetype) combination
+              Select an (ML library, File type) combination
             </option>
             <option value="scikit-learn|joblib">(Scikit-learn, joblib)</option>
             <option value="scikit-learn|pickle">(Scikit-learn, pickle)</option>
