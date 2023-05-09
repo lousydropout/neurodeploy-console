@@ -54,7 +54,7 @@ const SignupComponent = () => {
     // sign up
     try {
       const response = await fetch(
-        `https://user-api.${params.domainName}/sign-up`,
+        `https://user-api.${params.domainName}/users`,
         requestOptions
       );
       const result = await response.json();

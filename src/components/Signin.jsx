@@ -32,7 +32,7 @@ const SigninComponent = () => {
     let result;
     try {
       const response = await fetch(
-        `https://user-api.${params.domainName}/sign-in`,
+        `https://user-api.${params.domainName}/sessions`,
         requestOptions
       );
       result = await response.json();
