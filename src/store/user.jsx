@@ -1,6 +1,7 @@
 import { createSignal } from "solid-js";
+import { params } from "./params";
 
-const KEY = "neurodeployUser";
+const KEY = `${params.domainName.slice(0, -4)}User`;
 
 const LOGGED_OUT = {
   loggedIn: false,

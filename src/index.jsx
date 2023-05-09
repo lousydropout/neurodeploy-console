@@ -74,7 +74,7 @@ setInterval(() => {
   } else if (expires_on <= now) {
     logUserOut();
   }
-}, 3000);
+}, 1000);
 
 createEffect(() => {
   if (modal().visible) {
