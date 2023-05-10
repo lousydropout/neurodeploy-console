@@ -6,7 +6,7 @@ import { clickOutside } from "./helpers/modals";
 import { user, grabfromCache, logUserOut } from "./store/user";
 import { location } from "./store/location";
 import { modal } from "./store/modal";
-import { params } from "./store/params";
+import { DOMAIN_NAME } from "./params/params";
 import Login from "./pages/Login";
 import logoUrl from "../assets/logo.png";
 
@@ -218,19 +218,13 @@ render(
         <div class="md:mx-4">Copyright &copy; 2023 Neurodeploy</div>
         {/* Terms and Conditions */}
         <div class="flex items-center md:mx-4 space-x-2 ">
-          <a class="underline" href={`https://${params.domainName}/terms`}>
+          <a class="underline" href={`${DOMAIN_NAME}/terms`}>
             terms
           </a>
-          <a
-            class="sm:hidden underline"
-            href={`https://${params.domainName}/privacy`}
-          >
+          <a class="sm:hidden underline" href={`${DOMAIN_NAME}/privacy`}>
             privacy
           </a>
-          <a
-            class="hidden sm:inline underline"
-            href={`https://${params.domainName}/privacy`}
-          >
+          <a class="hidden sm:inline underline" href={`${DOMAIN_NAME}/privacy`}>
             privacy policy
           </a>
         </div>

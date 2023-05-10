@@ -4,10 +4,8 @@ import { user } from "../store/user";
 import { Loading, clickOutside } from "../helpers/modals";
 import { modalNull, setModal } from "../store/modal";
 import { A } from "@solidjs/router";
-import { params } from "../store/params";
+import { USER_API_URL } from "../params/params";
 import { formatDatetime } from "../helpers/formatTime";
-
-const USER_API = `https://user-api.${params.domainName}`;
 
 const [creds, setCreds] = createSignal({ ready: false, creds: [] });
 
@@ -22,7 +20,7 @@ const getCreds = async (token) => {
   };
 
   try {
-    const response = await fetch(`${USER_API}/credentials`, requestOptions);
+    const response = await fetch(`${USER_API_URL}/credentials`, requestOptions);
     const results = await response.json();
     setCreds({ ready: true, creds: results["creds"] });
   } catch (err) {
@@ -41,7 +39,7 @@ const Credentials = () => {
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
 
     try {
-      const response = await fetch(`${USER_API}/credentials/${name}`, {
+      const response = await fetch(`${USER_API_URL}/credentials/${name}`, {
         method: "DELETE",
         headers: myHeaders,
       });

@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
-import { params } from "./params";
+import { DOMAIN } from "../params/params";
 
-const KEY = `${params.domainName.slice(0, -4)}User`;
+const KEY = `${DOMAIN}User`;
 
 const LOGGED_OUT = {
   loggedIn: false,

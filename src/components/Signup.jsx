@@ -5,7 +5,7 @@ import { toggleShowLogin } from "../store/showLogin";
 import { validate, validated } from "../helpers/validations";
 import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
-import { params } from "../store/params";
+import { DOMAIN_NAME, USER_API_URL } from "../params/params";
 
 const ErrorMessage = (props) => (
   <span class="text-sm text-right text-red-400">{props.error}</span>
@@ -53,10 +53,7 @@ const SignupComponent = () => {
 
     // sign up
     try {
-      const response = await fetch(
-        `https://user-api.${params.domainName}/users`,
-        requestOptions
-      );
+      const response = await fetch(`${USER_API_URL}/users`, requestOptions);
       const result = await response.json();
       console.log("signup: ", result);
 
@@ -197,7 +194,7 @@ const SignupComponent = () => {
             I agree to the
             <a
               class="ml-1 font-semibold underline text-violet-400"
-              href={`https://${params.domainName}/terms`}
+              href={`${DOMAIN_NAME}/terms`}
               target="_blank"
               ref="nofollow"
             >
@@ -206,7 +203,7 @@ const SignupComponent = () => {
             and
             <a
               class="ml-1 font-semibold underline text-violet-400"
-              href={`https://${params.domainName}/privacy`}
+              href={`${DOMAIN_NAME}/privacy`}
               target="_blank"
               ref="nofollow"
             >

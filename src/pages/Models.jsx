@@ -4,11 +4,8 @@ import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { setModal, modalNull } from "../store/modal";
 import { Loading, clickOutside } from "../helpers/modals";
-import { params } from "../store/params";
+import { USER_API_URL, API_URL } from "../params/params";
 import { formatDatetime } from "../helpers/formatTime";
-
-const USER_API = `https://user-api.${params.domainName}`;
-const API_DOMAIN = `https://api.${params.domainName}`;
 
 const [models, setModels] = createSignal({ ready: false, models: [] });
 
@@ -23,7 +20,7 @@ const getModels = async (token) => {
   };
 
   try {
-    const response = await fetch(`${USER_API}/ml-models`, requestOptions);
+    const response = await fetch(`${USER_API_URL}/ml-models`, requestOptions);
     const results = await response.json();
     const x = results["models"];
     x.sort((a, b) => (a.uploaded_at < b.uploaded_at ? -1 : 1));
@@ -38,7 +35,7 @@ const deleteModel = async (modelName) => {
   myHeaders.append("Authorization", `Bearer ${user().jwt}`);
 
   try {
-    const response = await fetch(`${USER_API}/ml-models/${modelName}`, {
+    const response = await fetch(`${USER_API_URL}/ml-models/${modelName}`, {
       method: "DELETE",
       headers: myHeaders,
     });
@@ -167,7 +164,7 @@ const Models = () => {
                         model endpoint:{" "}
                       </span>
                       <span class="text-gray-300 underline">
-                        {`${API_DOMAIN}/${user().username}/${model.model_name}`}
+                        {`${API_URL}/${user().username}/${model.model_name}`}
                       </span>
                     </p>
                   </div>

@@ -3,9 +3,7 @@ import { createStore } from "solid-js/store";
 import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
 import { clickOutside } from "../helpers/modals";
-import { params } from "../store/params";
-
-const USER_API = `https://user-api.${params.domainName}`;
+import { USER_API_URL } from "../params/params";
 
 export default function () {
   const [error, setError] = createSignal(null);
@@ -21,7 +19,7 @@ export default function () {
     const requestOptions = { method: "GET", headers: myHeaders };
 
     try {
-      const response = await fetch(`${USER_API}/ml-models`, requestOptions);
+      const response = await fetch(`${USER_API_URL}/ml-models`, requestOptions);
       const results = await response.json();
       if ("error_message" in results) {
         throw Error(results.error_message);
@@ -53,7 +51,7 @@ export default function () {
 
     try {
       const response = await fetch(
-        `${USER_API}/api-keys?model_name=${fields.model_name}&description=${fields.description}&expires_after=${fields.expires_after}`,
+        `${USER_API_URL}/api-keys?model_name=${fields.model_name}&description=${fields.description}&expires_after=${fields.expires_after}`,
         requestOptions
       );
       const results = await response.json();

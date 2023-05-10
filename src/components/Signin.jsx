@@ -4,7 +4,7 @@ import { createStore } from "solid-js/store";
 import { toggleShowLogin } from "../store/showLogin";
 import { updateUser } from "../store/user";
 import logoUrl from "../../assets/logo.png";
-import { params } from "../store/params";
+import { USER_API_URL } from "../params/params";
 
 const SigninComponent = () => {
   const [error, setError] = createSignal(null);
@@ -31,10 +31,7 @@ const SigninComponent = () => {
     // sign in
     let result;
     try {
-      const response = await fetch(
-        `https://user-api.${params.domainName}/sessions`,
-        requestOptions
-      );
+      const response = await fetch(`${USER_API_URL}/sessions`, requestOptions);
       result = await response.json();
       console.log("result:  ", result);
 

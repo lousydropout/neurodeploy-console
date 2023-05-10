@@ -3,9 +3,7 @@ import { createStore } from "solid-js/store";
 import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
 import { clickOutside } from "../helpers/modals";
-import { params } from "../store/params";
-
-const USER_API = `https://user-api.${params.domainName}`;
+import { USER_API_URL } from "../params/params";
 
 export default function () {
   const [error, setError] = createSignal(null);
@@ -26,7 +24,10 @@ export default function () {
     const requestOptions = { method: "POST", headers: myHeaders };
 
     try {
-      const response = await fetch(`${USER_API}/credentials`, requestOptions);
+      const response = await fetch(
+        `${USER_API_URL}/credentials`,
+        requestOptions
+      );
       const results = await response.json();
       console.log("results: ", results);
       if ("error_message" in results) {

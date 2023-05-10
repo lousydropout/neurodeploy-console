@@ -4,12 +4,10 @@ import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { setModal, modalNull } from "../store/modal";
 import { Loading, clickOutside } from "../helpers/modals";
-import { params } from "../store/params";
+import { USER_API_URL } from "../params/params";
 import { formatDatetime } from "../helpers/formatTime";
 
-const USER_API = `https://user-api.${params.domainName}`;
-const API_DOMAIN = `https://api.${params.domainName}`;
-const KEY_PREFIX = "xxxxxxxx-xxxx-xxxx-xxxx-xxxx";
+const KEY_PREFIX = "********-****-****-****-****";
 
 const [apiKeys, setApiKeys] = createSignal({ ready: false, apiKeys: [] });
 
@@ -24,7 +22,7 @@ const getApiKeys = async (token) => {
   };
 
   try {
-    const response = await fetch(`${USER_API}/api-keys`, requestOptions);
+    const response = await fetch(`${USER_API_URL}/api-keys`, requestOptions);
     const results = await response.json();
     const x = results["api-keys"];
     x.sort((a, b) => (a.uploaded_at < b.uploaded_at ? -1 : 1));
@@ -38,11 +36,11 @@ const deleteApiKey = async (hashed_key) => {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${user().jwt}`);
   console.log("hashed_key: ", hashed_key);
-  console.log("url: ", `${USER_API}/api-keys/${hashed_key}`);
+  console.log("url: ", `${USER_API_URL}/api-keys/${hashed_key}`);
 
   try {
     console.log("hashed_key: ", hashed_key);
-    const response = await fetch(`${USER_API}/api-keys/${hashed_key}`, {
+    const response = await fetch(`${USER_API_URL}/api-keys/${hashed_key}`, {
       method: "DELETE",
       headers: myHeaders,
     });

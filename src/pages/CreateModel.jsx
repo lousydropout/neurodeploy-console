@@ -2,10 +2,9 @@ import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { clickOutside } from "../helpers/modals";
 import { modalNull, setModal } from "../store/modal";
-import { params } from "../store/params";
+import { USER_API_URL } from "../params/params";
 import { user } from "../store/user";
 import axios from "axios";
-const USER_API = `https://user-api.${params.domainName}`;
 
 const CreateModelModal = (props) => {
   const { filename, uploadProgress } = props;
@@ -100,7 +99,7 @@ export default function () {
     const requestOptions = { method: "PUT", headers: myHeaders };
     try {
       const response = await fetch(
-        `${USER_API}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}&is_public=${fields.is_public}`,
+        `${USER_API_URL}/ml-models/${fields.model_name}?lib=${fields.lib}&filetype=${fields.filetype}&is_public=${fields.is_public}`,
         requestOptions
       );
       const results = await response.json();
