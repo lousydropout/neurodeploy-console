@@ -16,6 +16,7 @@ export default function () {
 
   const submit = async (e) => {
     e.preventDefault();
+    setError(null); // reset error
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
@@ -23,6 +24,7 @@ export default function () {
     myHeaders.append("description", fields.description);
     const requestOptions = { method: "POST", headers: myHeaders };
 
+    // send create cred request
     try {
       const response = await fetch(
         `${USER_API_URL}/credentials`,
@@ -30,8 +32,8 @@ export default function () {
       );
       const results = await response.json();
       console.log("results: ", results);
-      if ("error_message" in results) {
-        throw Error(results.error_message);
+      if ("errorMessage" in results) {
+        throw Error(results.errorMessage);
       }
 
       // Show creds to user
