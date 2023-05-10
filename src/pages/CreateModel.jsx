@@ -82,17 +82,6 @@ export default function () {
       return;
     }
 
-    // set modal
-    setModal({
-      visible: true,
-      content: (
-        <CreateModelModal
-          filename={fields.file.name}
-          uploadProgress={uploadProgress}
-        />
-      ),
-    });
-
     // Get presigned PUT url
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${user().jwt}`);
@@ -104,7 +93,26 @@ export default function () {
       );
       const results = await response.json();
       console.log("results: ", results);
+      if ("errors" in results) {
+        throw Error(results.errors);
+      }
+    } catch (e) {
+      console.error(e);
+      setError(e.toString());
+      return;
+    }
 
+    // set modal
+    setModal({
+      visible: true,
+      content: (
+        <CreateModelModal
+          filename={fields.file.name}
+          uploadProgress={uploadProgress}
+        />
+      ),
+    });
+    try {
       // Upload file
       const formdata = new FormData();
       Object.entries(results.fields).forEach(([k, v]) => {
@@ -118,6 +126,7 @@ export default function () {
       });
     } catch (e) {
       console.error(e);
+      setError(e.toString());
     }
   };
 
