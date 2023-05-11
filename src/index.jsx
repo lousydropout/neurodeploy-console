@@ -5,7 +5,7 @@ import { icons } from "../assets/icons";
 import { clickOutside } from "./components/Modals";
 import { user, grabfromCache, logUserOut } from "./store/user";
 import { location } from "./store/location";
-import { modal } from "./store/modal";
+import { modal, modalNull, setModal } from "./store/modal";
 import { DOMAIN_NAME } from "./params/params";
 import Login from "./pages/Login";
 import logoUrl from "../assets/logo.png";
@@ -240,7 +240,16 @@ render(
 render(
   () => (
     <Show when={modal().visible}>
-      <div id="modal-start" tabIndex="0"></div>
+      <div
+        id="modal-start"
+        tabIndex="0"
+        onKeyDown={(e) => {
+          console.log("e.code: ", e.code);
+          if (e.code === "Escape") {
+            setModal(modalNull);
+          }
+        }}
+      ></div>
       <div class="flex justify-center overflow-x-auto">{modal().content}</div>
     </Show>
   ),
