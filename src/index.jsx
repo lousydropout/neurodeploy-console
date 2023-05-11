@@ -240,6 +240,7 @@ render(
 render(
   () => (
     <Show when={modal().visible}>
+      <div id="modal-start" tabIndex="0"></div>
       <div class="flex justify-center overflow-x-auto">{modal().content}</div>
     </Show>
   ),

@@ -83,6 +83,7 @@ const Credentials = () => {
             visible: true,
             content: <DeleteCredsModal name={props.name} />,
           });
+          document.getElementById("modal-start").focus();
         }}
       >
         delete

@@ -89,6 +89,7 @@ const ApiKeys = () => {
             visible: true,
             content: <DeleteModal last8={last8} key={key} />,
           });
+          document.getElementById("modal-start").focus();
         }}
       >
         delete

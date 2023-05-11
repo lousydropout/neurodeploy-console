@@ -52,26 +52,38 @@ const Models = () => {
   setLocation("Models");
   getModels(user().jwt);
 
-  const DeleteModal = (props) => (
-    <div class="modal" use:clickOutside={() => setModal(modalNull)}>
-      Are you sure you wanna delete model{" "}
-      <span class="font-semibold">{props.name}</span>?
-      <div class="flex justify-between w-full mt-12 space-x-4">
-        <button
-          class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
-          onClick={() => setModal(modalNull)}
-        >
-          Cancel
-        </button>
-        <button
-          class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
-          onClick={() => deleteModel(props.name)}
-        >
-          Delete
-        </button>
+  const DeleteModal = (props) => {
+    const Cancel = () => (
+      <button
+        id={`cancel-deletion-of-modal-${props.name}`}
+        class="px-4 py-2 text-gray-300 bg-zinc-700 hover:bg-zinc-600 border border-gray-300 rounded-md"
+        onClick={() => setModal(modalNull)}
+      >
+        Cancel
+      </button>
+    );
+
+    const Confirm = () => (
+      <button
+        id={`confirm-deletion-of-modal-${props.name}`}
+        class="px-4 py-2 text-gray-300 bg-red-900 hover:bg-red-800  border border-red-800 hover:border-red-700 rounded-md"
+        onClick={() => deleteModel(props.name)}
+      >
+        Delete
+      </button>
+    );
+
+    return (
+      <div class="modal" use:clickOutside={() => setModal(modalNull)}>
+        Are you sure you wanna delete model{" "}
+        <span class="font-semibold">{props.name}</span>?
+        <div class="flex justify-between w-full mt-12 space-x-4">
+          <Cancel />
+          <Confirm />
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const DeleteThisModel = (props) => {
     const { name } = props;
@@ -84,6 +96,7 @@ const Models = () => {
             visible: true,
             content: <DeleteModal name={name} />,
           });
+          document.getElementById("modal-start").focus();
         }}
       >
         delete
