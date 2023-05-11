@@ -3,7 +3,7 @@ import { A } from "@solidjs/router";
 import { setLocation } from "../store/location";
 import { user } from "../store/user";
 import { setModal, modalNull } from "../store/modal";
-import { Loading, clickOutside } from "../helpers/modals";
+import { Loading, clickOutside } from "../components/Modals";
 import { USER_API_URL } from "../params/params";
 import { formatDatetime } from "../helpers/formatTime";
 

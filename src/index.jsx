@@ -2,7 +2,7 @@
 import { render } from "solid-js/web";
 import { Router, A } from "@solidjs/router";
 import { icons } from "../assets/icons";
-import { clickOutside } from "./helpers/modals";
+import { clickOutside } from "./components/Modals";
 import { user, grabfromCache, logUserOut } from "./store/user";
 import { location } from "./store/location";
 import { modal } from "./store/modal";
@@ -117,6 +117,14 @@ const NavExpanded = () => {
         class="flex flex-col lg:hidden cursor-pointer p-0"
         onClick={toggleShowMenu}
         use:clickOutside={() => setShowMenu(false)}
+        tabIndex="0"
+        onKeyDown={(e) => {
+          // if they hit space or enter
+          if (e.code === "Space" || e.code === "Enter") {
+            const x = e.target;
+            x.click();
+          }
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -154,12 +162,6 @@ const NavExpanded = () => {
           }}
         </For>
       </ul>
-      <a
-        class="hover:text-violet-700 hover:underline transition-transform hidden lg:flex"
-        href="https://console.neurodeploy.com"
-      >
-        Console
-      </a>
     </>
   );
 };

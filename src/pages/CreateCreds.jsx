@@ -2,7 +2,7 @@ import { createSignal, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { modal, modalNull, setModal } from "../store/modal";
 import { user } from "../store/user";
-import { clickOutside } from "../helpers/modals";
+import { clickOutside } from "../components/Modals";
 import { USER_API_URL } from "../params/params";
 
 export default function () {

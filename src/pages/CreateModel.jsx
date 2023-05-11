@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
-import { clickOutside } from "../helpers/modals";
+import { clickOutside } from "../components/Modals";
 import { modalNull, setModal } from "../store/modal";
 import { USER_API_URL } from "../params/params";
 import { user } from "../store/user";
@@ -92,27 +92,22 @@ export default function () {
         requestOptions
       );
       const results = await response.json();
-      console.log("results: ", results);
+
       if ("errors" in results) {
         throw Error(results.errors);
       }
-    } catch (e) {
-      console.error(e);
-      setError(e.toString());
-      return;
-    }
 
-    // set modal
-    setModal({
-      visible: true,
-      content: (
-        <CreateModelModal
-          filename={fields.file.name}
-          uploadProgress={uploadProgress}
-        />
-      ),
-    });
-    try {
+      // set modal
+      setModal({
+        visible: true,
+        content: (
+          <CreateModelModal
+            filename={fields.file.name}
+            uploadProgress={uploadProgress}
+          />
+        ),
+      });
+
       // Upload file
       const formdata = new FormData();
       Object.entries(results.fields).forEach(([k, v]) => {
@@ -223,22 +218,10 @@ export default function () {
                 handleClickOrDrop(f);
               }}
               onKeyDown={(e) => {
-                e.preventDefault();
+                // if they hit space or enter
                 if (e.code === "Space" || e.code === "Enter") {
-                  // if they hit space or enter
                   const x = e.target.querySelector("input#model-file");
                   x.click();
-                } else if (e.code === "Tab" && e.shiftKey) {
-                  // if they hit shift-tab
-                  const x = document.getElementById("lib");
-                  x.focus();
-                } else if (e.code === "Tab" && !e.shiftKey) {
-                  // if they hit tab
-                  const x = document.getElementById("is_public");
-                  x.focus();
-                } else if (e.code === "KeyR") {
-                  // if they hit ctrl-r
-                  window.location.reload();
                 }
               }}
               tabIndex="0"
