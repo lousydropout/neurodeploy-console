@@ -5,7 +5,7 @@
   "scripts": {
     "start": "pnpm run dev-replace-params; vite",
     "dev": "pnpm run dev-replace-params; vite",
-    "build": "pnpm run dev-replace-params; vite build",
+    "build": "pnpm run replace-params; vite build",
     "serve": "vite preview",
     "replace-params": "cp src/params/prod-params.js src/params/params.js",
     "clear": "aws s3 rm --recursive s3://neuro-console --profile prod",

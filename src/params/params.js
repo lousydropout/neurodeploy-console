@@ -1,4 +1,4 @@
-const DOMAIN = "playingwithml";
+const DOMAIN = "neurodeploy";
 const DOMAIN_NAME = `https://${DOMAIN}.com`;
 const API_URL = `https://api.${DOMAIN}.com`;
 const USER_API_URL = `https://user-api.${DOMAIN}.com`;
