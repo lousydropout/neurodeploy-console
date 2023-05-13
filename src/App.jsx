@@ -3,6 +3,7 @@ import { lazy } from "solid-js";
 
 const Home = lazy(() => import("./pages/Home"));
 const Model = lazy(() => import("./pages/models/[model_name]"));
+const Log = lazy(() => import("./pages/models/[model_name]/[timestamp]"));
 const Models = lazy(() => import("./pages/Models"));
 const ApiKeys = lazy(() => import("./pages/ApiKeys"));
 const CreateApiKey = lazy(() => import("./pages/CreateApiKey"));
@@ -21,6 +22,7 @@ function App() {
       <Route path="/create_api_key" component={CreateApiKey}></Route>
       <Route path="/create_model" component={CreateModel}></Route>
       <Route path="/models/:model_name" component={Model}></Route>
+      <Route path="/models/:model_name/:timestamp" component={Log}></Route>
       <Route path="/credentials" component={Credentials}></Route>
       <Route path="/create_creds" component={CreateCreds}></Route>
       <Route path="/privacy" component={Privacy}></Route>

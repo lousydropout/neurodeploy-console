@@ -205,7 +205,7 @@ render(
             </nav>
 
             {/* Main */}
-            <main className="w-full p-4 md:p-12 col-span-1 overflow-y-auto">
+            <main className="w-full h-full p-4 md:p-12 col-span-1 overflow-y-auto">
               <App />
             </main>
           </div>
