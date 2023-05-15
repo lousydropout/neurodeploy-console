@@ -69,28 +69,27 @@ const SignupComponent = () => {
   };
 
   return (
-    <div class="flex flex-col">
+    <div class="flex flex-col items-center">
       {/* header */}
-      <header class="flex flex-col items-center">
-        <img
-          src={logoUrl}
-          alt="Neurodeploy logo"
-          class="my-2 sm:mb-6 w-12 sm:w-14"
-        />
-        <h1 class="text-3xl text-gray-200">Create your account</h1>
-        <p class="mt-2 text-sm text-center max-w">
-          Already registered?
-          <A
-            class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
-            href="#"
-            onClick={toggleShowLogin}
-          >
-            Sign in
-          </A>
-        </p>
+      <img
+        src={logoUrl}
+        alt="Neurodeploy logo"
+        class="my-2 sm:mb-6 w-12 sm:w-14"
+      />
+      <h1 class="text-3xl text-gray-200">Create your account</h1>
+      <p class="mt-2 text-sm text-center max-w">
+        Already registered?
+        <A
+          class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
+          href="#"
+          onClick={toggleShowLogin}
+          tabIndex="0"
+        >
+          Sign in
+        </A>
+      </p>
 
-        <hr class="my-2 sm:my-4 border-zinc-400" />
-      </header>
+      <hr class="my-2 sm:my-4 border-zinc-400" />
 
       {/* form */}
       <form

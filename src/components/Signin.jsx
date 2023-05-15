@@ -55,28 +55,27 @@ const SigninComponent = () => {
   };
 
   return (
-    <div class="flex flex-col">
+    <div class="flex flex-col items-center">
       {/* header */}
-      <header class="flex flex-col items-center">
-        <img
-          src={logoUrl}
-          alt="Neurodeploy logo"
-          class="my-2 sm:mb-6 w-12 sm:w-14"
-        />
-        <h1 class="text-3xl text-gray-200">Log in</h1>
-        <p class="mt-2 text-sm text-center max-w">
-          Don't have an account?
-          <A
-            class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
-            href="#"
-            onClick={toggleShowLogin}
-          >
-            Register here
-          </A>
-          .
-        </p>
-        <hr class="my-2 sm:my-4 border-zinc-400" />
-      </header>
+      <img
+        src={logoUrl}
+        alt="Neurodeploy logo"
+        class="my-2 sm:mb-6 w-12 sm:w-14"
+      />
+      <h1 class="text-3xl text-gray-200">Log in</h1>
+      <p class="mt-2 text-sm text-center max-w">
+        Don't have an account?
+        <A
+          class="ml-1 font-semibold underline text-violet-400 hover:text-violet-300 hover:border-violet-300"
+          href="#"
+          onClick={toggleShowLogin}
+          tabIndex="0"
+        >
+          Register here
+        </A>
+        .
+      </p>
+      <hr class="my-2 sm:my-4 border-zinc-400" />
 
       {/* form */}
       <form
@@ -84,7 +83,7 @@ const SigninComponent = () => {
         onSubmit={submit}
       >
         {/* username */}
-        <label for="username" class="flex justify-between text-gray-300 ">
+        <label for="username" class="flex justify-between text-gray-300">
           Username:
         </label>
         <input
