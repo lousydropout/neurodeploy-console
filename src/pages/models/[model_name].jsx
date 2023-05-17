@@ -55,6 +55,7 @@ export default function () {
         requestOptions
       );
       const results = await response.json();
+      console.log("results: ", results);
 
       if (results.logs.length === 0) {
         setLogs((prev) => ({
