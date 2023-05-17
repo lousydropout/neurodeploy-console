@@ -5,18 +5,19 @@
   "scripts": {
     "start": "pnpm run dev-replace-params; vite",
     "dev": "pnpm run dev-replace-params; vite",
-    "build": "pnpm run replace-params; vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "replace-params": "cp src/params/prod-params.js src/params/params.js",
+    "revert-params": "cp src/params/dev-params.js src/params/params.js",
     "clear": "aws s3 rm --recursive s3://neuro-console --profile prod",
     "copy": "aws s3 cp --recursive ./dist s3://neuro-console --profile prod",
-    "invalidate_cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E15YN00AWMADKB --profile prod",
-    "deploy": "pnpm run replace-params; pnpm run build; pnpm run clear;  pnpm run copy;  pnpm run invalidate_cloudfront;",
+    "invalidate-cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E15YN00AWMADKB --profile prod",
+    "deploy": "pnpm run replace-params; pnpm run build; pnpm run clear;  pnpm run copy;  pnpm run invalidate-cloudfront; pnpm run revert-params",
     "dev-replace-params": "cp src/params/dev-params.js src/params/params.js",
     "dev-clear": "aws s3 rm --recursive s3://playingwithml-console --profile dev",
     "dev-copy": "aws s3 cp --recursive ./dist s3://playingwithml-console --profile dev",
-    "dev-invalidate_cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E1NB0ZVBAEVHCH --profile dev",
-    "dev-deploy": "pnpm run dev-replace-params; pnpm run build; pnpm run dev-clear;  pnpm run dev-copy; pnpm run dev-invalidate_cloudfront"
+    "dev-invalidate-cloudfront": "aws cloudfront create-invalidation --paths '/*' --distribution-id E1NB0ZVBAEVHCH --profile dev",
+    "dev-deploy": "pnpm run dev-replace-params; pnpm run build; pnpm run dev-clear;  pnpm run dev-copy; pnpm run dev-invalidate-cloudfront"
   },
   "license": "MIT",
   "devDependencies": {
