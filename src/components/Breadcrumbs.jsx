@@ -22,7 +22,7 @@ export const Breadcrumbs = ({ pages }) => {
   const lastIndex = pages.length - 2;
 
   return (
-    <nav class="bg-zinc-800 text-white mb-8" aria-label="Breadcrumb">
+    <nav class="bg-transparent text-white mb-8" aria-label="Breadcrumb">
       <ol class="list-none flex">
         <li class="mr-2">
           <A
