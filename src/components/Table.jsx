@@ -57,7 +57,7 @@ export const Table = (props) => {
 
   return (
     <div class="">
-      <table class="table-fixed bg-zinc-800 text-white">
+      <table class="table-fixed bg-transparent text-white">
         <thead class="text-violet-400 bg-opacity-40 border-b-2 border-b-zinc-200">
           <tr class="items-center">
             <For each={headers}>

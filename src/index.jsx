@@ -172,7 +172,7 @@ render(
       <Show when={user().loggedIn} fallback={() => Login()}>
         {/* Header */}
         <header
-          class="flex flex-row items-center justify-between h-20 p-4 bg-zinc-800 border-b-2 border-zinc-700"
+          class="flex flex-row items-center justify-between h-20 p-4 bg-transparent border-b-2 border-zinc-700"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <Logo />
@@ -192,7 +192,7 @@ render(
 
         {/* Center */}
         <div
-          className="flex h-full bg-zinc-800 overflow-y-auto md:overflow-y-hidden"
+          className="flex h-full bg-transparent overflow-y-auto md:overflow-y-hidden"
           classList={{ "opacity-[85%]": modal().visible }}
         >
           <div
@@ -200,7 +200,7 @@ render(
             classList={{ hidden: showMenu() }}
           >
             {/* SideNav */}
-            <nav class="hidden md:flex flex-col justify-between p-6 bg-zinc-800 border-r-2 border-zinc-700 col-span-1 ">
+            <nav class="hidden md:flex flex-col justify-between p-6 bg-transparent border-r-2 border-zinc-700 col-span-1 ">
               <Nav />
             </nav>
 
@@ -214,7 +214,7 @@ render(
 
       {/* Footer */}
       <footer
-        class="flex flex-row items-center justify-between h-12 p-4 md:px-6 text-gray-400 bg-zinc-800 border-t-2 border-zinc-700"
+        class="flex flex-row items-center justify-between h-12 p-4 md:px-6 text-gray-400 bg-transparent border-t-2 border-zinc-700"
         classList={{ "opacity-[85%]": modal().visible }}
       >
         <div class="md:mx-4">Copyright &copy; 2023 Neurodeploy</div>
