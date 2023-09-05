@@ -110,12 +110,12 @@ export default function () {
 
       // Upload file
       const formdata = new FormData();
-      Object.entries(results.fields).forEach(([k, v]) => {
+      Object.entries(results.model.fields).forEach(([k, v]) => {
         formdata.append(k, v);
       });
       formdata.append("file", fields.file);
 
-      await axios.post(results.url, formdata, {
+      await axios.post(results.model.url, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: updateUploadProgress,
       });
